@@ -15,6 +15,7 @@
 
 // outside of the board
 #define OUTSIDE -1
+#define NOT_A_SQUARE -2
 
 // a game board
 typedef struct {
