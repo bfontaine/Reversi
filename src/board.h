@@ -1,8 +1,15 @@
 #ifndef _BOARD_H
 #define _BOARD_H 1
 
+#include <stdio.h>
+#include <string.h>
 
 // -- utils --
+
+#define MIN_SQ 0
+#define MAX_SQ 7
+#define FIRST_LETTER 'A'
+#define FIRST_DIGIT  '1'
 
 #define EMPTY 0
 #define EMPTY_C 'E'

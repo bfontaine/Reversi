@@ -59,6 +59,10 @@ int main(void) {
     assert(convert_square(sq, &col, &row) == OUTSIDE);
     free(sq);
 
+    sq = (char*)strdup("0");
+    assert(convert_square(sq, &col, &row) == NOT_A_SQUARE);
+    free(sq);
+
     // initialize board
     assert(init_board(b) == 0);
     
