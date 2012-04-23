@@ -23,30 +23,51 @@ int convert_square(char* square_name, int* col, int* row) {
     return 0;
 }
 
-int get_piece(char* square_name, char* piece) {
+int get_piece(board* b, char* square_name, char* piece) {
+
+    int col, row, err;
+
+    err = convert_square(square_name, &col, &row);
+
+    if (err != 0) { return err; }
+
+    *piece = b->game_board[col][row];
     
     return 0;
 }
 
-int put_piece(char* square_name, char* piece) {
+int put_piece(board* b, char* square_name, char piece) {
+
+    int col, row, err;
+    err = convert_square(square_name, &col, &row);
+    if (err != 0) { return err; }
+
+    b->game_board[col][row] = piece;
     
     return 0;
 }
 
 int init_board(board* b) {
+
+    if (b == NULL) {
+        b = (board*)malloc(sizeof(board));
+    }
+
+    int i = MIN_SQ,
+        j = MIN_SQ;
+
+    for (;i <= MAX_SQ; i++) {
+        for (;j <= MAX_SQ; j++) {
+            b->game_board[i][j] = EMPTY_C;
+        }
+    }
+
+    put_piece(b, "D5", BLACK_C);
+    put_piece(b, "E4", BLACK_C);
+    put_piece(b, "D4", WHITE_C);
+    put_piece(b, "E5", WHITE_C);
     
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 #endif // _BOARD_C

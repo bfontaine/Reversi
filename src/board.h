@@ -43,10 +43,10 @@ int convert_square(char* square_name, int* col, int* row);
 
 // similar to `_get_piece`, but the first argument is
 // a square name (e.g. "E5", "B2")
-int get_piece(char* square_name, char* piece);
+int get_piece(board* b, char* square_name, char* piece);
 
 // reverse of `get_piece`, put `piece` into `square_name` square.
-int put_piece(char* square_name, char* piece);
+int put_piece(board* b, char* square_name, char piece);
 
 
 // -- board-related functions --

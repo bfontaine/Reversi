@@ -4,6 +4,7 @@
 int main(void) {
 
     board* b = (board*)malloc(sizeof(board));
+    board* b2 = NULL;
     char* sq;
     char p;
 
@@ -65,47 +66,49 @@ int main(void) {
 
     // initialize board
     assert(init_board(b) == 0);
+    assert(init_board(b2) == 0);
     
     // get piece
     sq = (char*)strdup("E4");
-    assert(get_piece(sq, &p) == 0);
+    assert(get_piece(b, sq, &p) == 0);
     assert(p == 'B');
     free(sq);
     
     sq = (char*)strdup("D5");
-    assert(get_piece(sq, &p) == 0);
+    assert(get_piece(b, sq, &p) == 0);
     assert(p == 'B');
     free(sq);
     
     sq = (char*)strdup("D4");
-    assert(get_piece(sq, &p) == 0);
+    assert(get_piece(b, sq, &p) == 0);
     assert(p == 'W');
     free(sq);
     
     sq = (char*)strdup("E5");
-    assert(get_piece(sq, &p) == 0);
+    assert(get_piece(b, sq, &p) == 0);
     assert(p == 'W');
     free(sq);
 
     sq = (char*)strdup("E6");
-    assert(get_piece(sq, &p) == 0);
+    assert(get_piece(b, sq, &p) == 0);
     assert(p == 'E');
     free(sq);
 
     sq = (char*)strdup("E9");
-    assert(get_piece(sq, &p) == OUTSIDE);
+    assert(get_piece(b, sq, &p) == OUTSIDE);
     free(sq);
      
     // put piece
     sq = (char*)strdup("E6");
     p = 'W';
-    assert(put_piece(sq, &p) == 0);
-    assert(get_piece(sq, &p) == 0);
+    assert(put_piece(b, sq, p) == 0);
+    assert(get_piece(b, sq, &p) == 0);
     assert(p == 'W');
     free(sq);
 
 
     free(b);
+    free(b2);
 
     return 0;
 }
