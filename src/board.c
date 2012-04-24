@@ -53,11 +53,10 @@ int init_board(board* b) {
         b = (board*)malloc(sizeof(board));
     }
 
-    int i = MIN_SQ,
-        j = MIN_SQ;
+    int i = MIN_SQ, j;
 
     for (;i <= MAX_SQ; i++) {
-        for (;j <= MAX_SQ; j++) {
+        for (j = MIN_SQ;j <= MAX_SQ; j++) {
             b->game_board[i][j] = EMPTY_C;
         }
     }
