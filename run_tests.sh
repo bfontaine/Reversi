@@ -13,6 +13,7 @@ for f in tests/*_tests.c;do
     if [ -s $tmp_err ]; then
         echo -n 'ERROR: '
         cat $tmp_err
+        rm -f $tmp_err
         exit -1
     fi
     
@@ -21,6 +22,7 @@ for f in tests/*_tests.c;do
     if [ -s $tmp_err ]; then
         echo -n 'ERROR: '
         cat $tmp_err
+        rm -f $tmp_err
         exit -1
     fi
 done 2> /dev/null
