@@ -1,4 +1,5 @@
 #include "../utils.h"
+#include "board.c"
 
 #ifndef _GAME_H
 #define _GAME_H 1
