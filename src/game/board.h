@@ -7,20 +7,6 @@
 
 // -- utils --
 
-#define MIN_SQ 0
-#define MAX_SQ 7
-#define FIRST_LETTER 'A'
-#define FIRST_DIGIT  '1'
-
-#define EMPTY 0
-#define EMPTY_C 'E'
-
-#define WHITE 1
-#define WHITE_C 'W'
-
-#define BLACK 2
-#define BLACK_C 'B'
-
 // a game board
 typedef struct {
 
