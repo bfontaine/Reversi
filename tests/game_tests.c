@@ -37,5 +37,7 @@ int main(void) {
     assert(compare_moves_arrays(moves, initial_moves, moves_nb));
 
 
+    free(moves);
+
     return 0;
 }

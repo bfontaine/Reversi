@@ -17,6 +17,8 @@
 #define BLACK 2
 #define BLACK_C 'B'
 
+#define OTHER_C(P) ((P==WHITE_C)?BLACK_C:WHITE_C)
+
 #define TIE_C 'T'
 
 /* == Errors =============================================================== */
