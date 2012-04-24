@@ -20,8 +20,8 @@ for f in tests/*_tests.c;do
     echo "Compiling ${tmp_f%%_tests} tests…"
     gcc -Wall $f -o /tmp/$tmp_f 2> $tmp_err
 
-    if [ -s $tmp_err ]; then
-        echo -n 'ERROR: '
+    if [ $? -ne 0 ] || [ -s $tmp_err ]; then
+        echo 'ERROR'
         cat $tmp_err
         rm -f $tmp_err
         exit -1
@@ -32,8 +32,8 @@ for f in tests/*_tests.c;do
     echo "Running ${tmp_f%%_tests} tests…"
     /tmp/$tmp_f 2> $tmp_err
     
-    if [ -s $tmp_err ]; then
-        echo -n 'ERROR: '
+    if [ $? -ne 0 ] || [ -s $tmp_err ]; then
+        echo 'ERROR'
         cat $tmp_err
         rm -f $tmp_err
         exit -1
@@ -47,6 +47,6 @@ for f in tests/*_tests.c;do
     echo "${assert_nb} assertions successfully passed."
     total_assert_nb=$((total_assert_nb+assert_nb))
 
-done 2> /dev/null
+done # 2> /dev/null
 
 echo "TOTAL: ${total_assert_nb} assertions successfully passed."

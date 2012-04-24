@@ -9,10 +9,11 @@ int compare_moves_arrays(char** a, char** b, int len) {
 
     for (; i < len; i++) {
         for (j = 0; j < len; j++) {
-            if (strcmp(a[i], b[i]))
+            if (strcmp(a[i], b[i])) {
                 return 0;
-            else
+            } else {
                 continue;
+            }
         }
     }
     return 1;
