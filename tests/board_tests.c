@@ -1,5 +1,5 @@
 #include "tests_base.h"
-#include "../src/board.c"
+#include "../src/game/board.c"
 
 int main(void) {
 

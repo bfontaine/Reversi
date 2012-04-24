@@ -26,8 +26,24 @@ Interface
 - Use ncurses to draw the board, and to map keys (e.g. arrow keys to move on the
   game, spacebar to put a token on it, etc)
 
+Interfaces: ncurses, text (reading STDIN, writing on STDOUT), text2 (text
+improved, with  a ASCII-board).
+
 Testing
 -------
 
 - for memory leaks, use
   [Valgrind](http://www.cprogramming.com/debugging/valgrind.html).
+
+Architecture
+------------
+
+3 parts: __interface__ (view), __data__ (model), and __main__ (controller).
+- interface : `src/interface/*`
+- data : `src/board.*`
+- controller : (soon…)
+
+All interfaces use `src/interface/interface.h` functions.
+The controller is just a `main` programm which use the model to update/respond
+to the interface. The AI may be a specific interface, or a `main` program
+which use another interface for the human player.
