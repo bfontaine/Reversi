@@ -4,6 +4,7 @@
 int main(void) {
 
     board* b = (board*)malloc(sizeof(board));
+    board* b2 = NULL;
     char* sq;
     char p;
 
@@ -65,6 +66,7 @@ int main(void) {
 
     // initialize board
     assert(init_board(b) == 0);
+    assert(init_board(b2) == BAD_POINTER);
     
     // get piece
     sq = (char*)strdup("E4");

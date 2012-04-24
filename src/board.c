@@ -49,6 +49,8 @@ int put_piece(board* b, char* square_name, char piece) {
 
 int init_board(board* b) {
 
+    if (b == NULL) {return BAD_POINTER;}
+
     int i = MIN_SQ, j;
 
     for (;i <= MAX_SQ; i++) {
