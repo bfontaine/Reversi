@@ -25,3 +25,9 @@ Interface
 - Use an "INTERFACE" option to set the interface when compiling
 - Use ncurses to draw the board, and to map keys (e.g. arrow keys to move on the
   game, spacebar to put a token on it, etc)
+
+Testing
+-------
+
+- for memory leaks, use
+  [Valgrind](http://www.cprogramming.com/debugging/valgrind.html).
