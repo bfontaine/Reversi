@@ -3,6 +3,8 @@
 # use `valgrind` to detect memory leaks
 use_valgrind= #$(which valgrind)
 
+total_assert_nb=0
+
 for f in tests/*_tests.c;do
 
     tmp_f=${f%%.c}
@@ -43,5 +45,8 @@ for f in tests/*_tests.c;do
     fi
 
     echo "${assert_nb} assertions successfully passed."
+    total_assert_nb=$((total_assert_nb+assert_nb))
 
 done 2> /dev/null
+
+echo "TOTAL: ${total_assert_nb} assertions successfully passed."
