@@ -11,4 +11,12 @@ int can_play(board *b, int col, int row, char player);
 // and the array length is given by the returned int value.
 int get_possible_moves(board *b, char player, char*** moves);
 
+// the player `player` put a token on `square_name` square.
+//
+// Ex:        .<- W plays here          W
+//   before: WB                 after: WW
+//           BW                        BW
+//
+int play(board *b, char player, char* square_name);
+
 #endif // _GAME_H

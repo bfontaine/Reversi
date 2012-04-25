@@ -28,20 +28,33 @@ int main(void) {
     char** moves = (char**)malloc(30*sizeof(char*));
     int i, moves_nb = 0;
 
-    char* initial_moves[] = {"E6", "F5", "C4", "D3"};
+    char* initial_moves_b[] = {"E6", "F5", "C4", "D3"};
+    char* initial_moves_w[] = {"E3", "F4", "C5", "D6"};
 
     assert(init_board(b) == 0);
 
-    // first move (black)
-    moves_nb = get_possible_moves(b, BLACK_C, &moves);
+    // first move with white (this is a test, not a normal game)
+    moves_nb = get_possible_moves(b, WHITE_C, &moves);
     assert(moves_nb == 4);
     assert(moves != NULL);
-    assert(compare_moves_arrays(moves, initial_moves, moves_nb));
-
-
+    assert(compare_moves_arrays(moves, initial_moves_w, moves_nb));
     for (i=0; i<moves_nb; i++) {
         free(moves[i]);
     }
+
+    // first move with black
+    moves_nb = get_possible_moves(b, BLACK_C, &moves);
+    assert(moves_nb == 4);
+    assert(moves != NULL);
+    assert(compare_moves_arrays(moves, initial_moves_b, moves_nb));
+    for (i=0; i<moves_nb; i++) {
+        free(moves[i]);
+    }
+
+    // black plays in E6
+    play(b, BLACK_C, "E6");
+    // TODO: check if E5 = BLACK_C after the move
+
     free(moves);
     free(b);
 
