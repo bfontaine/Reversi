@@ -99,11 +99,9 @@ int can_play(board *b, int col, int row, char player) {
     return 0;
 }
 
-int get_possible_moves(board *b, char player, char** moves) {
+int get_possible_moves(board *b, char player, char*** moves) {
 
     int i = MIN_SQ, j, moves_nb=0;
-
-    moves = (char**)malloc(30*sizeof(char*));
 
     for (; i <= MAX_SQ; i++) {
         for (j=MIN_SQ; j <= MAX_SQ; j++) {
@@ -111,15 +109,13 @@ int get_possible_moves(board *b, char player, char** moves) {
                 continue;
             }
             if (can_play(b, i, j, player)) {
-                printf("%d, %d\n", i, j);
-                moves[moves_nb] = (char*)malloc(sizeof(char)*3);
-                moves[moves_nb][0] = FIRST_LETTER+i;
-                moves[moves_nb][1] = FIRST_LETTER+MAX_SQ+j;
+                (*moves)[moves_nb] = (char*)malloc(sizeof(char)*3);
+                (*moves)[moves_nb][0] = FIRST_LETTER+i;
+                (*moves)[moves_nb][1] = FIRST_DIGIT+j;
                 moves_nb++;
             }
         }
     }
-    printf("%d\n", moves_nb);
     return moves_nb;
 }
 
