@@ -9,7 +9,7 @@ int compare_moves_arrays(char** a, char** b, int len) {
 
     // we assume that each array have exactly `len` different values
 
-    for (; i < len; i++) {
+    for (i=0; i < len; i++) {
         ok = 0;
         for (j = 0; j < len; j++) {
             if (!strcmp(a[i], b[j])) {
@@ -20,7 +20,6 @@ int compare_moves_arrays(char** a, char** b, int len) {
             return 0;
     }
     return 1;
-
 }
 
 int main(void) {
@@ -39,10 +38,12 @@ int main(void) {
     assert(moves != NULL);
     assert(compare_moves_arrays(moves, initial_moves, moves_nb));
 
+
     for (i=0; i<moves_nb; i++) {
         free(moves[i]);
     }
     free(moves);
+    free(b);
 
     return 0;
 }
