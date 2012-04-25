@@ -4,12 +4,9 @@
 #ifndef _GAME_C
 #define _GAME_C 1
 
-int can_play(board *b, int col, int row, char player) { // FIXME (IS_NOT_ME)
-
-#define IS_ME(i,j) (b->game_board[i][j]==player)
-#define IS_NOT_ME(i,j) (b->game_board[i][j]==(OTHER_C(player)))
+int can_play(board *b, int col, int row, char player) {
     
-    if (b->game_board[col][row] != 'E')
+    if (is_empty_by_rowcol(b, col, row) != 1)
         return 0;
 
     int i, j;
@@ -22,28 +19,28 @@ int can_play(board *b, int col, int row, char player) { // FIXME (IS_NOT_ME)
 
     if (col > 1+MIN_SQ) {
 
-        if ((row < MAX_SQ-1) && (IS_NOT_ME(col-1,row+1))) {
+        if ((row < MAX_SQ-1) && (is_other_player_by_rowcol(b, col-1, row+1, player))) {
             // 1
             for (i=col-2, j=row+2; i >= MIN_SQ && j <= MAX_SQ; i--, j++) {
-                if (IS_ME(i,j)) {
+                if (is_player_by_rowcol(b, i, j, player)) {
                     return 1;
                 }
             }
         }
 
-        if (IS_NOT_ME(col-1,row)) {
+        if (is_other_player_by_rowcol(b, col-1, row, player)) {
             // 4
             for (i=col-2; i >= MIN_SQ; i--) {
-                if (IS_ME(i,j)) {
+                if (is_player_by_rowcol(b, i, row, player)) {
                     return 1;
                 }
             }
         }
 
-        if ((row > 1+MIN_SQ) && (IS_NOT_ME(col-1,row-1))) {
+        if ((row > 1+MIN_SQ) && (is_other_player_by_rowcol(b, col-1, row-1, player))) {
             // 6
             for (i=col-2, j=row-2; i >= MIN_SQ && j >= MIN_SQ; i--, j--) {
-                if (IS_ME(i,j)) {
+                if (is_player_by_rowcol(b, i, j, player)) {
                     return 1;
                 }
             }
@@ -53,47 +50,47 @@ int can_play(board *b, int col, int row, char player) { // FIXME (IS_NOT_ME)
 
     if (col < MAX_SQ-1) {
 
-        if ((row > 1+MIN_SQ) && (IS_NOT_ME(col+1,row+1))) {
+        if ((row > 1+MIN_SQ) && (is_other_player_by_rowcol(b, col+1, row+1, player))) {
             // 3
             for (i=col+2, j=row+2; i <= MAX_SQ && j <= MAX_SQ; i++, j++) {
-                if (IS_ME(i,j)) {
+                if (is_player_by_rowcol(b, i, j, player)) {
                     return 1;
                 }
             }
         }
 
-        if (IS_NOT_ME(col+1,row)) {
+        if (is_other_player_by_rowcol(b, col+1, row, player)) {
             // 5
             for (i=col+2; i <= MAX_SQ; i++) {
-                if (IS_ME(i,j)) {
+                if (is_player_by_rowcol(b, i, row, player)) {
                     return 1;
                 }
             }
         }
 
-        if ((row < MAX_SQ-1) && (IS_NOT_ME(col+1,row-1))) {
+        if ((row < MAX_SQ-1) && (is_other_player_by_rowcol(b, col+1, row-1, player))) {
             // 8
             for (i=col+2, j=row-2; i <= MAX_SQ && j >= MIN_SQ; i++, j--) {
-                if (IS_ME(i,j)) {
+                if (is_player_by_rowcol(b, i, j, player)) {
                     return 1;
                 }
             }
         }
     }
 
-    if ((row > 1+MIN_SQ) && (IS_NOT_ME(col,row-1))) {
+    if ((row > 1+MIN_SQ) && (is_other_player_by_rowcol(b, col, row-1, player))) {
         // 7
         for (i=row-2; i >= MIN_SQ; i--) {
-            if (IS_ME(i,j)) {
+            if (is_player_by_rowcol(b, col, i, player)) {
                 return 1;
             }
         }
     }
 
-    if ((row < MAX_SQ-1) && (IS_NOT_ME(col,row+1))) {
+    if ((row < MAX_SQ-1) && (is_other_player_by_rowcol(b, col, row+1, player))) {
         // 2
         for (i=row+2; i <= MAX_SQ; i++) {
-            if (IS_ME(i,j)) {
+            if (is_player_by_rowcol(b, col, i, player)) {
                 return 1;
             }
         }
@@ -110,10 +107,11 @@ int get_possible_moves(board *b, char player, char** moves) {
 
     for (; i <= MAX_SQ; i++) {
         for (j=MIN_SQ; j <= MAX_SQ; j++) {
-            if (b->game_board[i][j] != 'E') {
+            if (!is_empty_by_rowcol(b, i, j)) {
                 continue;
             }
             if (can_play(b, i, j, player)) {
+                printf("%d, %d\n", i, j);
                 moves[moves_nb] = (char*)malloc(sizeof(char)*3);
                 moves[moves_nb][0] = FIRST_LETTER+i;
                 moves[moves_nb][1] = FIRST_LETTER+MAX_SQ+j;
@@ -121,7 +119,7 @@ int get_possible_moves(board *b, char player, char** moves) {
             }
         }
     }
-
+    printf("%d\n", moves_nb);
     return moves_nb;
 }
 
