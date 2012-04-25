@@ -5,125 +5,110 @@ int main(void) {
 
     board* b = (board*)malloc(sizeof(board));
     board* b2 = NULL;
-    char* sq;
     char p;
 
     int col = -1,
         row = -1;
 
     // convert squares
-    sq = (char*)strdup("A1");
-    assert(convert_square(sq, &col, &row) == 0);
+    assert(convert_square("A1", &col, &row) == 0);
     assert(col == 0);
     assert(row == 0);
-    free(sq);
 
-    sq = (char*)strdup("H8");
-    assert(convert_square(sq, &col, &row) == 0);
+    assert(convert_square("H8", &col, &row) == 0);
     assert(col == 7);
     assert(row == 7);
-    free(sq);
 
-    sq = (char*)strdup("A8");
-    assert(convert_square(sq, &col, &row) == 0);
+    assert(convert_square("A8", &col, &row) == 0);
     assert(col == 0);
     assert(row == 7);
-    free(sq);
 
-    sq = (char*)strdup("H1");
-    assert(convert_square(sq, &col, &row) == 0);
+    assert(convert_square("H1", &col, &row) == 0);
     assert(col == 7);
     assert(row == 0);
-    free(sq);
 
-    sq = (char*)strdup("D7");
-    assert(convert_square(sq, &col, &row) == 0);
+    assert(convert_square("D7", &col, &row) == 0);
     assert(col == 3);
     assert(row == 6);
-    free(sq);
 
-    sq = (char*)strdup("F2");
-    assert(convert_square(sq, &col, &row) == 0);
+    assert(convert_square("F2", &col, &row) == 0);
     assert(col == 5);
     assert(row == 1);
-    free(sq);
 
-    sq = (char*)strdup("A9");
-    assert(convert_square(sq, &col, &row) == OUTSIDE);
-    free(sq);
+    assert(convert_square("A9", &col, &row) == OUTSIDE);
+    assert(convert_square("I3", &col, &row) == OUTSIDE);
+    assert(convert_square("D0", &col, &row) == OUTSIDE);
 
-    sq = (char*)strdup("I3");
-    assert(convert_square(sq, &col, &row) == OUTSIDE);
-    free(sq);
-
-    sq = (char*)strdup("D0");
-    assert(convert_square(sq, &col, &row) == OUTSIDE);
-    free(sq);
-
-    sq = (char*)strdup("0");
-    assert(convert_square(sq, &col, &row) == NOT_A_SQUARE);
-    free(sq);
+    assert(convert_square("0", &col, &row) == NOT_A_SQUARE);
 
     // initialize board
     assert(init_board(b) == 0);
     assert(init_board(b2) == BAD_POINTER);
     
     // get piece
-    sq = (char*)strdup("E4");
-    assert(get_piece(b, sq, &p) == 0);
-    assert(p == 'B');
-    free(sq);
-    
-    sq = (char*)strdup("D5");
-    assert(get_piece(b, sq, &p) == 0);
-    assert(p == 'B');
-    free(sq);
-    
-    sq = (char*)strdup("D4");
-    assert(get_piece(b, sq, &p) == 0);
-    assert(p == 'W');
-    free(sq);
-    
-    sq = (char*)strdup("E5");
-    assert(get_piece(b, sq, &p) == 0);
-    assert(p == 'W');
-    free(sq);
 
-    sq = (char*)strdup("E6");
-    assert(get_piece(b, sq, &p) == 0);
-    assert(p == 'E');
-    free(sq);
+    assert(get_piece(b, "E4", &p) == 0);
+    assert(p == BLACK_C);
+    
+    assert(get_piece(b, "D5", &p) == 0);
+    assert(p == BLACK_C);
+    
+    assert(get_piece(b, "D4", &p) == 0);
+    assert(p == WHITE_C);
+    
+    assert(get_piece(b, "E5", &p) == 0);
+    assert(p == WHITE_C);
 
-    sq = (char*)strdup("E9");
-    assert(get_piece(b, sq, &p) == OUTSIDE);
-    free(sq);
+    assert(get_piece(b, "E6", &p) == 0);
+    assert(p == EMPTY_C);
+
+    assert(get_piece(b, "E9", &p) == OUTSIDE);
      
     // put piece
-    sq = (char*)strdup("E6");
-    p = 'W';
-    assert(put_piece(b, sq, p) == 0);
+    p = WHITE_C;
+    assert(put_piece(b, "E6", p) == 0);
     p = '_';
-    assert(get_piece(b, sq, &p) == 0);
-    assert(p == 'W');
-    free(sq);
+    assert(get_piece(b, "E6", &p) == 0);
+    assert(p == WHITE_C);
      
-    // put piece
-    sq = (char*)strdup("A1");
-    p = 'B';
-    assert(put_piece(b, sq, p) == 0);
+    p = BLACK_C;
+    assert(put_piece(b, "A1", p) == 0);
     p = '_';
-    assert(get_piece(b, sq, &p) == 0);
-    assert(p == 'B');
-    free(sq);
+    assert(get_piece(b, "A1", &p) == 0);
+    assert(p == BLACK_C);
      
-    // put piece
-    sq = (char*)strdup("A1");
-    p = 'B';
-    assert(put_piece(b, sq, p) == 0);
+    p = BLACK_C;
+    assert(put_piece(b, "A1", p) == 0);
     p = '_';
-    assert(get_piece(b, sq, &p) == 0);
-    assert(p == 'B');
-    free(sq);
+    assert(get_piece(b, "A1", &p) == 0);
+    assert(p == BLACK_C);
+
+    // is empty
+    assert(is_empty(b, "A1") == 0);
+    assert(is_empty(b, "A2") == 1);
+    assert(is_empty(b, "A0") == OUTSIDE);
+    assert(is_empty(b, "w") == NOT_A_SQUARE);
+
+    // is player
+    assert(is_player(b, "D4", BLACK_C) == 0);
+    assert(is_player(b, "D4", WHITE_C) == 1);
+    assert(is_player(b, "E4", BLACK_C) == 1);
+    assert(is_player(b, "E4", WHITE_C) == 0);
+    assert(is_player(b, "A2", BLACK_C) == 0);
+    assert(is_player(b, "A2", WHITE_C) == 0);
+    assert(is_player(b, "A0", WHITE_C) == OUTSIDE);
+    assert(is_player(b, "w", WHITE_C) == NOT_A_SQUARE);
+    
+    // is other player
+    assert(is_other_player(b, "D4", BLACK_C) == 1);
+    assert(is_other_player(b, "D4", WHITE_C) == 0);
+    assert(is_other_player(b, "E4", BLACK_C) == 0);
+    assert(is_other_player(b, "E4", WHITE_C) == 1);
+    assert(is_other_player(b, "A2", BLACK_C) == 0);
+    assert(is_other_player(b, "A2", WHITE_C) == 0);
+    assert(is_other_player(b, "A0", WHITE_C) == OUTSIDE);
+    assert(is_other_player(b, "w", WHITE_C) == NOT_A_SQUARE);
+
 
     free(b);
 

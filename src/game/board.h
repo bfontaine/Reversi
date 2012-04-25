@@ -24,13 +24,32 @@ int convert_square(char* square_name, int* col, int* row);
 
 // -- piece-related functions --
 
-// similar to `_get_piece`, but the first argument is
-// a square name (e.g. "E5", "B2")
+// get the piece in `square_name` square, and put it in `piece`.
 int get_piece(board* b, char* square_name, char* piece);
+int get_piece_by_rowcol(board *b, int row, int col, char* piece);
 
 // reverse of `get_piece`, put `piece` into `square_name` square.
 int put_piece(board* b, char* square_name, char piece);
+int put_piece_by_rowcol(board *b, int row, int col, char piece);
 
+// test if the square is empty
+int is_empty(board* b, char* square_name);
+int is_empty_by_rowcol(board* b, int row, int col);
+
+// test if the square contains a token of the given player
+int is_player(board* b, char* square_name, char player);
+int is_player_by_rowcol(board* b, int row, int col, char player);
+
+// test if the square contains a token of the other player
+int is_other_player(board* b, char* square_name, char player);
+int is_other_player_by_rowcol(board* b, int row, int col, char player);
+
+// test if the square is alone, i.e. all its neighbour are empty
+int is_alone(board* b, char* square_name);
+int is_alone_by_rowcol(board* b, int row, int col);
+
+// test if the square is outside of the board
+int is_outside_by_rowcol(int row, int col);
 
 // -- board-related functions --
 
