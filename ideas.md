@@ -5,11 +5,12 @@ Each module is a file with structs and functions related to something in
 particular.
 
 - `board` for the board-related structs and functions
-- `player` for the players
+- `game`
 - `interfaces/text` for the text interface
 - `interfaces/ncurses` for the ncurses interface. All interface modules should
   provide the same functions, so we can switch easily between them.
 - `[module name]_test` for each module's tests
+- `main`: the main program, which use all others modules
 
 Data structures
 --------------
@@ -27,7 +28,7 @@ Interface
   game, spacebar to put a token on it, etc)
 
 Interfaces: ncurses, text (reading STDIN, writing on STDOUT), text2 (text
-improved, with  a ASCII-board).
+improved, with a ASCII-Art board).
 
 Testing
 -------
@@ -40,10 +41,10 @@ Architecture
 
 3 parts: __interface__ (view), __data__ (model), and __main__ (controller).
 - interface : `src/interface/*`
-- data : `src/board.*`
-- controller : (soon…)
+- data : `src/game/board.*`
+- controller : `src/main.*``
 
 All interfaces use `src/interface/interface.h` functions.
 The controller is just a `main` programm which use the model to update/respond
-to the interface. The AI may be a specific interface, or a `main` program
-which use another interface for the human player.
+to the interface. The AI is a special `main` program which use an interface for
+the human player.
