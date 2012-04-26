@@ -121,8 +121,16 @@ int get_possible_moves(board *b, char player, char*** moves) {
 }
 
 int get_score(board *b, char player) {
-    //TODO
-    return 0;
+    
+    int i=MIN_SQ, j, score=0;
+
+    for (; i<=MAX_SQ; i++) {
+        for (j=MIN_SQ; j<=MAX_SQ; j++) {
+            score += (b->game_board[i][j] == player);
+        }
+    }
+
+    return score;
 }
 
 int play(board *b, char player, char* square_name) {
