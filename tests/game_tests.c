@@ -26,7 +26,7 @@ int main(void) {
 
     board* b = (board*)malloc(sizeof(board));
     char** moves = (char**)malloc(30*sizeof(char*));
-    int i, moves_nb = 0;
+    int i, moves_nb = 0, directions=0;
 
     char* initial_moves_b[] = {"E6", "F5", "C4", "D3"};
     char* initial_moves_w[] = {"E3", "F4", "C5", "D6"};
@@ -55,7 +55,11 @@ int main(void) {
     for (i=0; i<moves_nb; i++) {
         free(moves[i]);
     }
-
+    // check if black can play in E6
+    assert(can_play(b, 4, 5, BLACK_C, &directions) == 1);
+    assert(can_play(b, 4, 5, BLACK_C, NULL) == 1);
+    assert(directions == CAN_PLAY_DOWN);
+    
     // black plays in E6
     assert(play(b, BLACK_C, "E6") == 2);
     assert(get_score(b, BLACK_C) == 4);

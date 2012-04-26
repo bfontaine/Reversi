@@ -25,18 +25,18 @@ int convert_square(char* square_name, int* col, int* row) {
 
 // By row/column
 
-int get_piece_by_rowcol(board *b, int row, int col, char* piece) {
+int get_piece_by_colrow(board *b, int col, int row, char* piece) {
 
-    if (is_outside_by_rowcol(row, col))
+    if (is_outside_by_colrow(col, row))
         return OUTSIDE;
 
     *piece = b->game_board[col][row];
     return 0;
 }
 
-int put_piece_by_rowcol(board *b, int row, int col, char piece) {
+int put_piece_by_colrow(board *b, int col, int row, char piece) {
 
-    if (is_outside_by_rowcol(row, col))
+    if (is_outside_by_colrow(col, row))
         return OUTSIDE;
 
     b->game_board[col][row] = piece;
@@ -44,27 +44,27 @@ int put_piece_by_rowcol(board *b, int row, int col, char piece) {
     return 0;
 }
 
-int is_outside_by_rowcol(int row, int col) {
+int is_outside_by_colrow(int col, int row) {
     return (   (row < MIN_SQ) || (row > MAX_SQ)
             || (col < MIN_SQ) || (col > MAX_SQ));
 }
 
-int is_empty_by_rowcol(board* b, int row, int col) {
-    if (is_outside_by_rowcol(row, col))
+int is_empty_by_colrow(board* b, int col, int row) {
+    if (is_outside_by_colrow(col, row))
         return OUTSIDE;
 
     return (b->game_board[col][row] == EMPTY_C);
 }
 
-int is_player_by_rowcol(board* b, int row, int col, char player) {
-    if (is_outside_by_rowcol(row, col))
+int is_player_by_colrow(board* b, int col, int row, char player) {
+    if (is_outside_by_colrow(col, row))
         return OUTSIDE;
     
     return (b->game_board[col][row] == player);
 }
 
-int is_other_player_by_rowcol(board* b, int row, int col, char player) {
-    if (is_outside_by_rowcol(row, col))
+int is_other_player_by_colrow(board* b, int col, int row, char player) {
+    if (is_outside_by_colrow(col, row))
         return OUTSIDE;
     
     char other_p = (player == BLACK_C) ? WHITE_C : BLACK_C;
@@ -72,18 +72,18 @@ int is_other_player_by_rowcol(board* b, int row, int col, char player) {
     return (b->game_board[col][row] == other_p);
 }
 
-int is_alone_by_rowcol(board* b, int row, int col) {
-    if (is_outside_by_rowcol(row, col))
+int is_alone_by_colrow(board* b, int col, int row) {
+    if (is_outside_by_colrow(col, row))
         return OUTSIDE;
     
-    return (   (is_empty_by_rowcol(b, row-1, col-1))
-            && (is_empty_by_rowcol(b, row,   col-1))
-            && (is_empty_by_rowcol(b, row+1, col-1))
-            && (is_empty_by_rowcol(b, row-1, col))
-            && (is_empty_by_rowcol(b, row+1, col))
-            && (is_empty_by_rowcol(b, row-1, col+1))
-            && (is_empty_by_rowcol(b, row,   col+1))
-            && (is_empty_by_rowcol(b, row+1, col+1)));
+    return (   (is_empty_by_colrow(b, row-1, col-1))
+            && (is_empty_by_colrow(b, row,   col-1))
+            && (is_empty_by_colrow(b, row+1, col-1))
+            && (is_empty_by_colrow(b, row-1, col))
+            && (is_empty_by_colrow(b, row+1, col))
+            && (is_empty_by_colrow(b, row-1, col+1))
+            && (is_empty_by_colrow(b, row,   col+1))
+            && (is_empty_by_colrow(b, row+1, col+1)));
 
 }
 
@@ -97,7 +97,7 @@ int get_piece(board* b, char* square_name, char* piece) {
 
     if (err != 0) { return err; }
 
-    return get_piece_by_rowcol(b, row, col, piece);
+    return get_piece_by_colrow(b, col, row, piece);
 }
 
 int put_piece(board* b, char* square_name, char piece) {
@@ -106,7 +106,7 @@ int put_piece(board* b, char* square_name, char piece) {
     err = convert_square(square_name, &col, &row);
     if (err != 0) { return err; }
 
-    return put_piece_by_rowcol(b, row, col, piece);    
+    return put_piece_by_colrow(b, col, row, piece);    
 }
 
 
@@ -115,7 +115,7 @@ int is_empty(board* b, char* square_name) {
     err = convert_square(square_name, &col, &row);
     if (err != 0) { return err; }
 
-    return is_empty_by_rowcol(b, row, col);
+    return is_empty_by_colrow(b, col, row);
 }
 
 int is_player(board* b, char* square_name, char player) {
@@ -123,7 +123,7 @@ int is_player(board* b, char* square_name, char player) {
     err = convert_square(square_name, &col, &row);
     if (err != 0) { return err; }
 
-    return is_player_by_rowcol(b, row, col, player);    
+    return is_player_by_colrow(b, col, row, player);    
 }
 
 int is_other_player(board* b, char* square_name, char player) {
@@ -131,7 +131,7 @@ int is_other_player(board* b, char* square_name, char player) {
     err = convert_square(square_name, &col, &row);
     if (err != 0) { return err; }
 
-    return is_other_player_by_rowcol(b, row, col, player);    
+    return is_other_player_by_colrow(b, col, row, player);    
 }
 
 int is_alone(board* b, char* square_name) {
@@ -139,7 +139,7 @@ int is_alone(board* b, char* square_name) {
     err = convert_square(square_name, &col, &row);
     if (err != 0) { return err; }
 
-    return is_alone_by_rowcol(b, row, col);
+    return is_alone_by_colrow(b, col, row);
 }
 
 

@@ -9,7 +9,7 @@
 #define FIRST_DIGIT  '1'
 
 #define EMPTY 0
-#define EMPTY_C 'E'
+#define EMPTY_C '.'
 
 #define WHITE 1
 #define WHITE_C 'W'
@@ -21,13 +21,26 @@
 
 #define TIE_C 'T'
 
+#define CAN_PLAY_UPLEFT 1
+#define CAN_PLAY_UP 2
+#define CAN_PLAY_UPRIGHT 4
+#define CAN_PLAY_LEFT 8
+#define CAN_PLAY_RIGHT 16
+#define CAN_PLAY_DOWNLEFT 32
+#define CAN_PLAY_DOWN 64
+#define CAN_PLAY_DOWNRIGHT 128
+
 /* == Errors =============================================================== */
 
-// Board-related errors : [BO]ARD -> [80] 
-#define OUTSIDE -801
-#define NOT_A_SQUARE -802
+// Board-related errors : [B]OARD -> [8] 
+#define OUTSIDE -81
+#define NOT_A_SQUARE -82
+#define NOT_EMPTY -83
 
-// Pointer-related errors : [PO]INTER -> [20]
-#define BAD_POINTER -201
+// Game-related errors: [G]ame -> [6]
+#define CANNOT_PLAY_HERE -61
+
+// Pointer-related errors : [P]OINTER -> [2]
+#define BAD_POINTER -21
 
 #endif // _UTILS_H

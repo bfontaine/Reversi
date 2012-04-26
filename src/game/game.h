@@ -5,7 +5,11 @@
 #define _GAME_H 1
 
 // test if `player` can play here.
-int can_play(board *b, int col, int row, char player);
+// if `directions` is not null, the value is set to a combination of
+// -    CAN_PLAY_UPLEFT, CAN_PLAY_UP, CAN_PLAY_UPRIGHT
+// - CAN_PLAY_LEFT,                      CAN_PLAY_RIGHT
+// - CAN_PLAY_DOWNLEFT, CAN_PLAY_DOWN, CAN_PLAY_DOWNRIGHT
+int can_play(board *b, int col, int row, char player, int* directions);
 
 // returns all possible moves for the given player. Moves are put in `moves`,
 // and the array length is given by the returned int value.
