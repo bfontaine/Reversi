@@ -17,9 +17,10 @@
 #define BLACK 2
 #define BLACK_C 'B'
 
-#define OTHER_C(P) ((P==WHITE_C)?BLACK_C:WHITE_C)
-
 #define TIE_C 'T'
+
+#define WHITE_NAME "WHITE"
+#define BLACK_NAME "BLACK"
 
 #define CAN_PLAY_UPLEFT 1
 #define CAN_PLAY_UP 2

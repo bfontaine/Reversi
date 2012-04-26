@@ -1,4 +1,6 @@
 #include "../utils.h"
+#include "../game/board.c"
+#include "../game/game.c"
 
 #ifndef _INTERFACE_H
 #define _INTERFACE_H 1
@@ -27,14 +29,14 @@ int print_winner(char winner);
 /* = Informations printings ================================================ */
 
 // print an error
-int print_error(char** error_str);
+int print_error(char* error_str);
 
 // print a notice
-int print_notice(char** notice_str);
+int print_notice(char* notice_str);
 
 /* = Inputs ================================================================ */
 
 // get a command
-int get_command(char* command);
+int read_command(char** command);
 
 #endif // _INTERFACE_H
