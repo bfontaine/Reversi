@@ -30,10 +30,15 @@ int main(void) {
 
     char* initial_moves_b[] = {"E6", "F5", "C4", "D3"};
     char* initial_moves_w[] = {"E3", "F4", "C5", "D6"};
+    char piece = '\0';
 
     assert(init_board(b) == 0);
 
-    // first move with white (this is a test, not a normal game)
+    // initial scores
+    assert(get_score(b, WHITE_C) == 2);
+    assert(get_score(b, BLACK_C) == 2);
+
+    // possible first moves with white (this is a test, not a normal game)
     moves_nb = get_possible_moves(b, WHITE_C, &moves);
     assert(moves_nb == 4);
     assert(moves != NULL);
@@ -42,7 +47,7 @@ int main(void) {
         free(moves[i]);
     }
 
-    // first move with black
+    // possible first moves with black
     moves_nb = get_possible_moves(b, BLACK_C, &moves);
     assert(moves_nb == 4);
     assert(moves != NULL);
@@ -52,8 +57,13 @@ int main(void) {
     }
 
     // black plays in E6
-    play(b, BLACK_C, "E6");
-    // TODO: check if E5 = BLACK_C after the move
+    assert(play(b, BLACK_C, "E6") == 2);
+    assert(get_score(b, BLACK_C) == 4);
+
+    assert(get_piece(b, "E6", &piece) == 0);
+    assert(piece == BLACK_C);
+    assert(get_piece(b, "E5", &piece) == 0);
+    assert(piece == BLACK_C);
 
     free(moves);
     free(b);

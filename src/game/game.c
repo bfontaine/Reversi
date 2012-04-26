@@ -120,6 +120,11 @@ int get_possible_moves(board *b, char player, char*** moves) {
     return moves_nb;
 }
 
+int get_score(board *b, char player) {
+    //TODO
+    return 0;
+}
+
 int play(board *b, char player, char* square_name) {
 
     //TODO
