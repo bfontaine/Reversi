@@ -1,5 +1,5 @@
 #include "tests_base.h"
-#include "../src/interfaces/text.c"
+#include "../src/interfaces/text2.c"
 
 int main(void) {
 
@@ -14,14 +14,14 @@ int main(void) {
 
     // print_score
     assert(print_notice("T: Next lines should be 'SCORE 01',") == 0);
-    assert(print_notice("   'SCORE -12', 'SCORE 00' and 'SCORE 64'.") == 0);
+    assert(print_notice("T: 'SCORE -12', 'SCORE 00' and 'SCORE 64'.") == 0);
     assert(print_score(1) == 0);
     assert(print_score(-12) == 0);
     assert(print_score(0) == 0);
     assert(print_score(64) == 0);
 
     // print_winner
-    assert(print_notice("T: Next lines should be 'NOIR gagne' and 'BLANC gagne'.") == 0);
+    assert(print_notice("T: Next lines should be 'BLACK won' and 'WHITE won'.") == 0);
     assert(print_winner(BLACK_C) == 0);
     assert(print_winner(WHITE_C) == 0);
 
@@ -29,8 +29,7 @@ int main(void) {
     board* b = (board*)malloc(sizeof(board));
     assert(init_board(b) == 0);
 
-    assert(print_notice("T: There should be an initialized Reversi board") == 0);
-    assert(print_notice("   on the standard error output.") == 0);
+    assert(print_notice("T: Next 8 lignes should be an initialized Reversi board.") == 0);
     print_board(b);
 
     // print_moves

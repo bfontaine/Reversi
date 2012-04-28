@@ -1,12 +1,10 @@
 #include <stdio.h>
 #include "interface.h"
 
-#ifndef _TEXT_C
-#define _TEXT_C 1
+#ifndef _TEXT_2_C
+#define _TEXT_2_C 1
 
-/**
- * Basic text interface as described in the subject.
- **/
+#define COMMAND_PROMPT "reversi> "
 
 int init_interface() {
     return 0;
@@ -24,9 +22,9 @@ int print_board(board *b) {
 
     for (; r>=MIN_SQ; r--) {
         for (c=MIN_SQ; c<=MAX_SQ; c++) {
-            fprintf(stderr, " %c", b->game_board[c][r]);
+            printf(" %c", b->game_board[c][r]);
         }
-        fprintf(stderr, "\n");
+        puts("");
     }
 
     return 0;
@@ -43,7 +41,7 @@ int print_moves(char** moves, int moves_number) {
     
     if (!moves_number) { return 0; }
 
-    printf("COUPS %s", moves[0]);
+    printf("%s", moves[0]);
 
     if (moves_number == 1) {
         puts(".");
@@ -64,14 +62,16 @@ int print_moves(char** moves, int moves_number) {
 int print_winner(char winner) {
 
     if (winner == WHITE_C) {
-        puts("BLANC gagne");
+        printf("%s won\n", WHITE_NAME);
         
     } else if (winner == BLACK_C) {
-        puts("NOIR gagne");
+        printf("%s won\n", BLACK_NAME);
 
     } else if (winner == TIE_C) {
-        puts("Egalite");
+        puts("Tie");
     
+    } else { // should not happen
+        puts("Chuck Norris won");
     }
 
     return 0;
@@ -80,7 +80,7 @@ int print_winner(char winner) {
 
 int print_error(char* error_str) {
 
-    printf("ERREUR %s\n", error_str);
+    printf("ERROR %s\n", error_str);
     return 0;
 }
 
@@ -97,6 +97,7 @@ int read_command(char** command) {
     char* newline, c = '\0';
 
     fflush(stdin);
+    printf(COMMAND_PROMPT);
     if (fgets(*command, sizeof *command, stdin) == NULL) {
         return 1;
     }
@@ -120,4 +121,4 @@ int read_command(char** command) {
 
 
 
-#endif // _TEXT_C
+#endif // _TEXT_2_C

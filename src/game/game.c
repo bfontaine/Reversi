@@ -136,6 +136,10 @@ int get_possible_moves(board *b, char player, char*** moves) {
 }
 
 int get_score(board *b, char player) {
+
+    if (player == '\0') {
+        return get_score(b, WHITE_C) - get_score(b, BLACK_C);
+    }
     
     int i=MIN_SQ, j, score=0;
 
