@@ -23,7 +23,16 @@ Data structures
 Interface
 ---------
 
-- Use an "INTERFACE" option to set the interface when compiling
+- Call `sed` in the Makefile to change the interface, e.g.:
+    
+    reversi : …
+        …
+    reversi_curses : …
+        sed 's/text/curses/' main.c > /tmp/q.c
+        gcc /tmp/q.c -o reversi_curses
+
+  In `main.c`: `#include "interfaces/text.c"`
+
 - Use ncurses to draw the board, and to map keys (e.g. arrow keys to move on the
   game, spacebar to put a token on it, etc)
 
