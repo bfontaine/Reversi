@@ -7,7 +7,7 @@ CC=gcc
 SRC=src/
 SRC_TESTS=tests/
 
-OPT=-Wall -I $(SRC)
+OPT=-Wall -I $(SRC) -std=c89
 OPT_TESTS=-Wall -I $(SRC_TESTS)
 
 default : game
