@@ -97,6 +97,7 @@ int read_command(char** command) {
     char* newline, c = '\0';
 
     fflush(stdin);
+    /* TODO use a while loop with fgetc */
     if (fgets(*command, sizeof *command, stdin) == NULL) {
         return 1;
     }

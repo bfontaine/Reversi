@@ -29,6 +29,7 @@ int launch_game() {
     while (1) {
         cmd = read_cmd();
 
+        // TODO use text.c : read_command(...)
         // TODO parse command
 
         free(cmd);
@@ -38,6 +39,23 @@ int launch_game() {
     free(b);
 
     return 0;
+}
+
+char* read_cmd() {
+
+    char *cmd = (char*)malloc(sizeof(char)*(CMD_MAX_SIZE+1));
+    char c = fgetc(stdin);    
+
+    int len = CMD_MAX_SIZE;
+
+    while ((c != EOF) && (len-- != 0) && (c != '\n')) {
+        *cmd++ = c;
+        c = fgetc(stdin);
+    }
+    
+    while (fgetc(stdin) != EOF); // flush buffer
+
+    return cmd;
 }
 
 int parse_cmd(board* b, char *command, char *player,
