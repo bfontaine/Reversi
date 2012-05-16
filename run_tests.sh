@@ -2,7 +2,10 @@
 
 # use `valgrind` to detect memory leaks
 use_valgrind=0
-[ $(which valgrind) != "" ] && use_valgrind=1
+
+if [ $# -ge 1] && [ "$1" == "--leaks" ] && [ $(which valgrind) != "" ]; then
+     use_valgrind=1
+fi
 
 total_assert_nb=0
 
@@ -41,7 +44,7 @@ for f in tests/*_tests.c;do
     #fi
 
     # Checking for memory leaks
-    if [ $use_valgrind ]; then
+    if [ $use_valgrind -eq 1 ]; then
         echo "Checking for memory leaks…"
         valgrind --tool=memcheck --leak-check=full -q /tmp/$tmp_f 2>&1
     fi
