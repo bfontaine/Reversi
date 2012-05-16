@@ -20,8 +20,6 @@ int close_interface() {
 
 int print_board(board *b) {
 
-    /* TODO print A,B,C,... and 1,2,... on the sides */
-    
     int r=MAX_SQ, c, pretty_c = 1;
 
     if (BOARD_PRETTY_PRINT) {
