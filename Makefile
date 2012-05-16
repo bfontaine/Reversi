@@ -18,8 +18,10 @@ default : othello
 
 othello : main
 
-main : main.o board.o game.o text.o
-	${CC} ${OPT} $^ -o $@
+#main : main.o board.o game.o text.o
+#	${CC} ${OPT} $^ -o $@
+main: ${SRC}/main.c
+	${CC} ${OPTS} $< -o $@
 
 # tests
 run-tests :
@@ -37,14 +39,14 @@ clean :
 #find . -name *.o -delete
 #find . -name a.out -delete
 
-board.o : ${GAME_SRC}/board.c ${GAME_SRC}/board.h
-	${CC} ${OPT} -c $< -o $@
-
-game.o : ${GAME_SRC}/game.c ${GAME_SRC}/game.h
-	${CC} ${OPT} -c $< -o $@
-
-text.o : ${INTERFACE_SRC}/text.c ${INTERFACE_SRC}/interface.h
-	${CC} ${OPT} -c $< -o $@
+# board.o : ${GAME_SRC}/board.c ${GAME_SRC}/board.h
+# 	${CC} ${OPT} -c $< -o $@
+# 
+# game.o : ${GAME_SRC}/game.c ${GAME_SRC}/game.h
+# 	${CC} ${OPT} -c $< -o $@
+# 
+# text.o : ${INTERFACE_SRC}/text.c ${INTERFACE_SRC}/interface.h
+# 	${CC} ${OPT} -c $< -o $@
 
 %.o : ${SRC}/%.c
 	${CC} ${OPT} -c $< -o $@
