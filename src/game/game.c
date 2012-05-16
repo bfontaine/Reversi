@@ -124,10 +124,12 @@ int get_possible_moves(board *b, char player, char*** moves) {
                 continue;
             }
             if (can_play(b, i, j, player, NULL)) {
-                (*moves)[moves_nb] = (char*)malloc(sizeof(char)*3);
-                (*moves)[moves_nb][0] = FIRST_LETTER+i;
-                (*moves)[moves_nb][1] = FIRST_DIGIT+j;
-                (*moves)[moves_nb][2] = '\0';
+                if (moves != NULL) {
+                    (*moves)[moves_nb] = (char*)malloc(sizeof(char)*3);
+                    (*moves)[moves_nb][0] = FIRST_LETTER+i;
+                    (*moves)[moves_nb][1] = FIRST_DIGIT+j;
+                    (*moves)[moves_nb][2] = '\0';
+                }
                 moves_nb++;
             }
         }
