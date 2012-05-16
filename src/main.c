@@ -19,34 +19,99 @@ int main(int argc, char** argv) {
 
 int launch_game() {
 
-    board* b = (board*)malloc(sizeof(board));
-    char* cmd = malloc(sizeof(char)*(CMD_MAX_SIZE+1));
-    char* sq_name = malloc(sizeof(char)*3);
+    int i = 0,
+        pass = 0,
+        executed = 0,
+        parsing_result = 0,
+        moves_nb = 0;
+    const int sqs_nb = (MAX_SQ-MIN_SQ+1)*(MAX_SQ-MIN_SQ+1);
 
-    char player = '\0';
-    int pass = 0,
-        executed = 0;
+    board* b = (board*)malloc(sizeof(board));
+    char *cmd = malloc(sizeof(char)*(CMD_MAX_SIZE+1)),
+         *sq_name = malloc(sizeof(char)*3),
+         **moves = malloc(sizeof(char*)*sqs_nb);
+
+    char current_player = FIRST_PLAYER,
+         player = '\0';
     
     init_board(b);
 
     init_interface();
 
     while (1) {
+        pass = 0;
+        executed = 0;
         read_command(&cmd);
 
-        if (parse_cmd(b, cmd, &player, &sq_name, &pass, &executed) < 0) {
+        parsing_result = parse_cmd(b, cmd, &player, &sq_name, &pass, &executed);
+
+        if (parsing_result < 0) {
+            
             print_error("Commande non reconnue.");
+            continue;
+
+        } else if (parsing_result == PLAY_AGAIN) {
+            
+            puts("OK");
+            return PLAY_AGAIN;
+        
+        } else if (parsing_result == SHOW_MOVES) {
+
+            printf("COUPS");
+            for (i=0; i<moves_nb; i++) {
+                printf(" %s", moves[i]);
+            }
+            puts("");
+            continue;
         }
 
-        /* TODO change current player
-         * TODO interpret player/sq_name/pass/executed values
-         */
+        if ((parsing_result == SHOW_MOVES) || pass) {
+            /* compute possible moves */
+            moves_nb = get_possible_moves(b, player, &moves);
+        }
+
+        if (executed) {
+            /* command already executed -> do nothing */
+            continue;
+
+        } else {
+
+            if (current_player != player) {
+                if (current_player == BLACK_C) {
+                    print_error("C'est à Noir de jouer.");
+                } else {
+                    print_error("C'est à Blanc de jouer.");
+                }
+                continue;
+            }
+            
+            if (pass) {
+                pass = 0;
+                if (moves_nb) {
+                    printf("ERREUR Le joueur peut jouer en %s\n", moves[0]);
+                } else {
+                    SWITCH_PLAYER(current_player);
+                    puts("OK");
+                }
+                continue;
+            }
+
+            play(b, current_player, sq_name);
+        }
+
+        SWITCH_PLAYER(current_player);
+        puts("OK");
     }
 
     close_interface();
     free(cmd);
     free(sq_name);
     free(b);
+
+    for (i=0; i<sqs_nb; i++) {
+        free(moves[i]);
+    }
+    free(moves);
 
     return 0;
 }
@@ -63,7 +128,7 @@ char* read_cmd() {
         c = fgetc(stdin);
     }
     
-    while (fgetc(stdin) != EOF); // flush buffer
+    while (fgetc(stdin) != EOF); /* flush buffer */
 
     return cmd;
 }
@@ -86,8 +151,7 @@ int parse_cmd(board* b, char *command, char *player,
     if (!strcmp(command, "coups")) {
         /*  print possible moves */
         *executed = 1;
-        /* print_moves( … ) TODO */
-        return 0;
+        return SHOW_MOVES;
     }
 
     if (!strcmp(command, "affiche")) {
@@ -115,7 +179,6 @@ int parse_cmd(board* b, char *command, char *player,
 
     if (command[1] == 'P') {
         /*  pass turn */
-        /*  TODO check if it is possible to move for this turn */
         *pass = 1;
         return 0;
     }
@@ -123,8 +186,6 @@ int parse_cmd(board* b, char *command, char *player,
     (*sq_name)[0] = command[1];
     (*sq_name)[1] = command[2];
     (*sq_name)[2] = '\0';
-
-    /*  TODO execute move */
 
     return 0;
 }
