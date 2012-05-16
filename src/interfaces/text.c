@@ -19,6 +19,8 @@ int close_interface() {
 
 
 int print_board(board *b) {
+
+    /* TODO print A,B,C,... and 1,2,... on the sides */
     
     int r=MAX_SQ, c;
 
@@ -94,31 +96,25 @@ int print_notice(char* notice_str) {
 
 int read_command(char** command) {
 
-    char* newline, c = '\0';
+    if (*command == NULL) {
+        return -21;
+    }
+    /* we assume that strlen(*command) >= CMD_MAX_SIZE */
 
-    fflush(stdin);
-    /* TODO use a while loop with fgetc */
-    if (fgets(*command, sizeof *command, stdin) == NULL) {
-        return 1;
-    }
-        
-    newline = strchr(*command, '\n');
-    if (newline != NULL) {
-        /* if there is a newline */
-        *newline = '\0';
-    } else {
-        /* if there is no newline */
-        puts("");
-    }
+    char c = fgetc(stdin);
+    int len = 0;
 
-    /* flush stdin */
-    while (c != '\n' && c != EOF) {
-        c = getchar();
+    while ((c != EOF) && (c != '\n') && (len+1 < CMD_MAX_SIZE)) {
+        if (len+1 < CMD_MAX_SIZE) {
+            *((*command)+(len++)) = c;
+        }
+
+        c = fgetc(stdin);
     }
+    *((*command)+len) = '\0';
 
     return 0;
 }
 
-
-
-#endif /* _TEXT_C */
+/* _TEXT_C */
+#endif
