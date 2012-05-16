@@ -20,10 +20,19 @@ int main(int argc, char** argv) {
 int launch_game() {
 
     board* b = (board*)malloc(sizeof(board));
+    char* cmd;
+    
     init_board(b);
 
     init_interface();
 
+    while (1) {
+        cmd = read_cmd();
+
+        // TODO parse command
+
+        free(cmd);
+    }
 
     close_interface();
     free(b);
@@ -33,11 +42,19 @@ int launch_game() {
 
 char* read_cmd() {
 
-    char *cmd = (char*)malloc(sizeof(char)*CMD_MAX_SIZE);
+    char *cmd = (char*)malloc(sizeof(char)*(CMD_MAX_SIZE+1));
+    char c = fgetc(stdin);    
 
+    int len = CMD_MAX_SIZE;
+
+    while ((c != EOF) && (len-- != 0) && (c != '\n')) {
+        *cmd++ = c;
+        c = fgetc(stdin);
+    }
     
+    while (fgetc(stdin) != EOF); // flush buffer
 
-    return 0;
+    return cmd;
 }
 
 int parse_cmd(board* b, char *command, char *player,
