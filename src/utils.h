@@ -5,6 +5,11 @@
 #include <stdio.h>
 #include <string.h>
 
+/* == Configuration options ================================================ */
+
+/* print A-H and 1-8 on the sides of the board */
+#define BOARD_PRETTY_PRINT 1
+
 /* == Game Constants ======================================================= */
 
 #define MIN_SQ 0
