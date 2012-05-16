@@ -37,22 +37,26 @@ int parse_cmd(board* b, char *command, char *player,
                 char **sq_name, int *pass, int *executed) {
 
     if (!strcmp(command, "score")) {
+        // print score
         *executed = 1;
         return print_score(get_score(b, '\0'));
     }
 
     if (!strcmp(command, "newgame")) {
+        // new game
         *executed = 1;
         return PLAY_AGAIN;
     }
 
     if (!strcmp(command, "coups")) {
+        // print possible moves
         *executed = 1;
         //print_moves( … ) TODO
         return 0;
     }
 
     if (!strcmp(command, "affiche")) {
+        // print board
         *executed = 1;
         return print_board(b);
     }
@@ -65,6 +69,7 @@ int parse_cmd(board* b, char *command, char *player,
             || ((command[1] < FIRST_LETTER) && (command[1] > FIRST_LETTER+MAX_SQ))
             || ((command[2] < FIRST_DIGIT) && (command[2] > FIRST_DIGIT+MAX_SQ))
         ){
+        // bad command
         *executed = 1;
         return print_error("Commande invalide.");
     }
@@ -74,6 +79,8 @@ int parse_cmd(board* b, char *command, char *player,
     *player = (command[0] == 'B') ? WHITE_C : BLACK_C;
 
     if (command[1] == 'P') {
+        // pass turn
+        // TODO check if it is possible to move for this turn
         *pass = 1;
         return 0;
     }
@@ -81,6 +88,8 @@ int parse_cmd(board* b, char *command, char *player,
     (*sq_name)[0] = command[1];
     (*sq_name)[1] = command[2];
     (*sq_name)[2] = '\0';
+
+    // TODO execute move
 
     return 0;
 }
