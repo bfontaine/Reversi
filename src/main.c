@@ -31,7 +31,11 @@ int launch_game() {
     return 0;
 }
 
-int read_cmd(char **command) {
+char* read_cmd() {
+
+    char *cmd = (char*)malloc(sizeof(char)*CMD_MAX_SIZE);
+
+    
 
     return 0;
 }

@@ -35,6 +35,8 @@
 #define CAN_PLAY_DOWN 64
 #define CAN_PLAY_DOWNRIGHT 128
 
+#define CMD_MAX_SIZE 100
+
 /* == Errors =============================================================== */
 
 /* Board-related errors : [B]OARD -> [8] */

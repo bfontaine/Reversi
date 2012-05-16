@@ -17,7 +17,7 @@
 int launch_game();
 
 /*  read a command */
-int read_cmd(char **command);
+char* read_cmd();
 
 /*  parse the given 'command'
     'player' should be the name of the current player (WHITE_C or BLACK_C). it
