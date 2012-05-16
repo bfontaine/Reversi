@@ -10,6 +10,7 @@
 #endif
 
 #define PLAY_AGAIN 2
+#define SHOW_MOVES 4
 
 #include INTERFACE
 
