@@ -1,13 +1,16 @@
 #include "main.h"
 
+#ifndef _MAIN_C
+#define _MAIN_C 1
+
 int main(int argc, char** argv) {
     
-    if (argc == 0) {
+    if (argc <= 1) {
         puts("Use --play to play.");
         return 0;
     }
 
-    if (!strcmp(argv[0], "--play")) {
+    if (!strcmp(argv[1], "--play")) {
         while (launch_game() == PLAY_AGAIN);
     }
 
@@ -37,50 +40,50 @@ int parse_cmd(board* b, char *command, char *player,
                 char **sq_name, int *pass, int *executed) {
 
     if (!strcmp(command, "score")) {
-        // print score
+        /*  print score */
         *executed = 1;
         return print_score(get_score(b, '\0'));
     }
 
     if (!strcmp(command, "newgame")) {
-        // new game
+        /*  new game */
         *executed = 1;
         return PLAY_AGAIN;
     }
 
     if (!strcmp(command, "coups")) {
-        // print possible moves
+        /*  print possible moves */
         *executed = 1;
-        //print_moves( … ) TODO
+        /* print_moves( … ) TODO */
         return 0;
     }
 
     if (!strcmp(command, "affiche")) {
-        // print board
+        /*  print board */
         *executed = 1;
         return print_board(b);
     }
 
     if (
                (strlen(command) != 3)
-         // || ((command[0] != WHITE_C) && (command[0] != BLACK_C))
+         /*  || ((command[0] != WHITE_C) && (command[0] != BLACK_C)) */
             || ((command[0] != 'B') && (command[0] != 'N'))
             || ((command[1] == 'P') && (command[2] != 'A'))
             || ((command[1] < FIRST_LETTER) && (command[1] > FIRST_LETTER+MAX_SQ))
             || ((command[2] < FIRST_DIGIT) && (command[2] > FIRST_DIGIT+MAX_SQ))
         ){
-        // bad command
+        /*  bad command */
         *executed = 1;
         return print_error("Commande invalide.");
     }
 
     *executed = 0;
-    //*player = command[0];
+    /* *player = command[0]; */
     *player = (command[0] == 'B') ? WHITE_C : BLACK_C;
 
     if (command[1] == 'P') {
-        // pass turn
-        // TODO check if it is possible to move for this turn
+        /*  pass turn */
+        /*  TODO check if it is possible to move for this turn */
         *pass = 1;
         return 0;
     }
@@ -89,7 +92,9 @@ int parse_cmd(board* b, char *command, char *player,
     (*sq_name)[1] = command[2];
     (*sq_name)[2] = '\0';
 
-    // TODO execute move
+    /*  TODO execute move */
 
     return 0;
 }
+
+#endif /* _MAIN_C */

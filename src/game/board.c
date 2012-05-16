@@ -1,7 +1,7 @@
-#include "board.h"
-
 #ifndef _BOARD_C
 #define _BOARD_C 1
+
+#include "board.h"
 
 int convert_square(char* square_name, int* col, int* row) {
 
@@ -23,7 +23,7 @@ int convert_square(char* square_name, int* col, int* row) {
     return 0;
 }
 
-// By row/column
+/*  By row/column */
 
 int get_piece_by_colrow(board *b, int col, int row, char* piece) {
 
@@ -87,7 +87,7 @@ int is_alone_by_colrow(board* b, int col, int row) {
 
 }
 
-// By square name
+/*  By square name */
 
 int get_piece(board* b, char* square_name, char* piece) {
 
@@ -163,4 +163,5 @@ int init_board(board* b) {
     return 0;
 }
 
-#endif // _BOARD_C
+/* _BOARD_C */
+#endif

@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include "interface.h"
-
 #ifndef _TEXT_C
 #define _TEXT_C 1
+
+#include <stdio.h>
+#include "interface.h"
 
 /**
  * Basic text interface as described in the subject.
@@ -103,14 +103,14 @@ int read_command(char** command) {
         
     newline = strchr(*command, '\n');
     if (newline != NULL) {
-        // if there is a newline
+        /* if there is a newline */
         *newline = '\0';
     } else {
-        // if there is no newline
+        /* if there is no newline */
         puts("");
     }
 
-    // flush stdin
+    /* flush stdin */
     while (c != '\n' && c != EOF) {
         c = getchar();
     }
@@ -120,4 +120,4 @@ int read_command(char** command) {
 
 
 
-#endif // _TEXT_C
+#endif /* _TEXT_C */

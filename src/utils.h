@@ -1,6 +1,10 @@
 #ifndef _UTILS_H
 #define _UTILS_H 1
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 /* == Game Constants ======================================================= */
 
 #define MIN_SQ 0
@@ -33,15 +37,15 @@
 
 /* == Errors =============================================================== */
 
-// Board-related errors : [B]OARD -> [8] 
+/* Board-related errors : [B]OARD -> [8] */
 #define OUTSIDE -81
 #define NOT_A_SQUARE -82
 #define NOT_EMPTY -83
 
-// Game-related errors: [G]ame -> [6]
+/*  Game-related errors: [G]ame -> [6] */
 #define CANNOT_PLAY_HERE -61
 
-// Pointer-related errors : [P]OINTER -> [2]
+/*  Pointer-related errors : [P]OINTER -> [2] */
 #define BAD_POINTER -21
 
-#endif // _UTILS_H
+#endif /* _UTILS_H */

@@ -1,42 +1,42 @@
+#ifndef _INTERFACE_H
+#define _INTERFACE_H 1
+
 #include "../utils.h"
 #include "../game/board.c"
 #include "../game/game.c"
 
-#ifndef _INTERFACE_H
-#define _INTERFACE_H 1
-
-// initialize the interface
+/*  initialize the interface */
 int init_interface();
 
-// close the interface
+/*  close the interface */
 int close_interface();
 
 /* = Game printings ======================================================== */
 
-// print game board
+/*  print game board */
 int print_board(board *b);
 
-// print the score
+/*  print the score */
 int print_score(int score);
 
-// print all the possible moves
+/*  print all the possible moves */
 int print_moves(char** moves, int moves_number);
 
-// print the winner's name
+/*  print the winner's name */
 int print_winner(char winner);
 
 
 /* = Informations printings ================================================ */
 
-// print an error
+/*  print an error */
 int print_error(char* error_str);
 
-// print a notice
+/*  print a notice */
 int print_notice(char* notice_str);
 
 /* = Inputs ================================================================ */
 
-// get a command
+/*  get a command */
 int read_command(char** command);
 
-#endif // _INTERFACE_H
+#endif /* _INTERFACE_H */

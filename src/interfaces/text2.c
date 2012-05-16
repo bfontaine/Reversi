@@ -70,7 +70,7 @@ int print_winner(char winner) {
     } else if (winner == TIE_C) {
         puts("Tie");
     
-    } else { // should not happen
+    } else { /* should not happen */
         puts("Chuck Norris won");
     }
 
@@ -104,14 +104,14 @@ int read_command(char** command) {
         
     newline = strchr(*command, '\n');
     if (newline != NULL) {
-        // if there is a newline
+        /* if there is a newline */
         *newline = '\0';
     } else {
-        // if there is no newline
+        /* if there is no newline */
         puts("");
     }
 
-    // flush stdin
+    /* flush stdin */
     while (c != '\n' && c != EOF) {
         c = getchar();
     }
@@ -121,4 +121,4 @@ int read_command(char** command) {
 
 
 
-#endif // _TEXT_2_C
+#endif /* _TEXT_2_C */

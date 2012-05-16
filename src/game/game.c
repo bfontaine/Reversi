@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include "game.h"
-
 #ifndef _GAME_C
 #define _GAME_C 1
+
+#include <stdio.h>
+#include "game.h"
 
 int can_play(board *b, int col, int row, char player, int* directions) {
     
@@ -27,7 +27,7 @@ int can_play(board *b, int col, int row, char player, int* directions) {
     if (col > 1+MIN_SQ) {
 
         if ((row < MAX_SQ-1) && (is_other_player_by_colrow(b, col-1, row+1, player))) {
-            // 1
+            /* 1 */
             for (i=col-2, j=row+2; i >= MIN_SQ && j <= MAX_SQ; i--, j++) {
                 if (is_player_by_colrow(b, i, j, player)) {
                     if (!set_directions) {return 1;}
@@ -37,7 +37,7 @@ int can_play(board *b, int col, int row, char player, int* directions) {
         }
 
         if (is_other_player_by_colrow(b, col-1, row, player)) {
-            // 4
+            /*  4 */
             for (i=col-2; i >= MIN_SQ; i--) {
                 if (is_player_by_colrow(b, i, row, player)) {
                     if (!set_directions) {return 1;}
@@ -47,7 +47,7 @@ int can_play(board *b, int col, int row, char player, int* directions) {
         }
 
         if ((row > 1+MIN_SQ) && (is_other_player_by_colrow(b, col-1, row-1, player))) {
-            // 6
+            /*  6 */
             for (i=col-2, j=row-2; i >= MIN_SQ && j >= MIN_SQ; i--, j--) {
                 if (is_player_by_colrow(b, i, j, player)) {
                     if (!set_directions) {return 1;}
@@ -61,7 +61,7 @@ int can_play(board *b, int col, int row, char player, int* directions) {
     if (col < MAX_SQ-1) {
 
         if ((row > 1+MIN_SQ) && (is_other_player_by_colrow(b, col+1, row+1, player))) {
-            // 3
+            /*  3 */
             for (i=col+2, j=row+2; i <= MAX_SQ && j <= MAX_SQ; i++, j++) {
                 if (is_player_by_colrow(b, i, j, player)) {
                     if (!set_directions) {return 1;}
@@ -71,7 +71,7 @@ int can_play(board *b, int col, int row, char player, int* directions) {
         }
 
         if (is_other_player_by_colrow(b, col+1, row, player)) {
-            // 5
+            /*  5 */
             for (i=col+2; i <= MAX_SQ; i++) {
                 if (is_player_by_colrow(b, i, row, player)) {
                     if (!set_directions) {return 1;}
@@ -81,7 +81,7 @@ int can_play(board *b, int col, int row, char player, int* directions) {
         }
 
         if ((row < MAX_SQ-1) && (is_other_player_by_colrow(b, col+1, row-1, player))) {
-            // 8
+            /*  8 */
             for (i=col+2, j=row-2; i <= MAX_SQ && j >= MIN_SQ; i++, j--) {
                 if (is_player_by_colrow(b, i, j, player)) {
                     if (!set_directions) {return 1;}
@@ -92,7 +92,7 @@ int can_play(board *b, int col, int row, char player, int* directions) {
     }
 
     if ((row > 1+MIN_SQ) && (is_other_player_by_colrow(b, col, row-1, player))) {
-        // 7
+        /*  7 */
         for (i=row-2; i >= MIN_SQ; i--) {
             if (is_player_by_colrow(b, col, i, player)) {
                 if (!set_directions) {return 1;}
@@ -102,7 +102,7 @@ int can_play(board *b, int col, int row, char player, int* directions) {
     }
 
     if ((row < MAX_SQ-1) && (is_other_player_by_colrow(b, col, row+1, player))) {
-        // 2
+        /*  2 */
         for (i=row+2; i <= MAX_SQ; i++) {
             if (is_player_by_colrow(b, col, i, player)) {
                 if (!set_directions) {return 1;}
@@ -268,4 +268,5 @@ int play(board *b, char player, char* square_name) {
     return pts;
 }
 
-#endif // _GAME_C
+/* _GAME_C */
+#endif
