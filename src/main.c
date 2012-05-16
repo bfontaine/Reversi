@@ -20,22 +20,32 @@ int main(int argc, char** argv) {
 int launch_game() {
 
     board* b = (board*)malloc(sizeof(board));
-    char* cmd;
+    char* cmd = malloc(sizeof(char)*(CMD_MAX_SIZE+1));
+    char* sq_name = malloc(sizeof(char)*3);
+
+    char player = '\0';
+    int pass = 0,
+        executed = 0;
     
     init_board(b);
 
     init_interface();
 
     while (1) {
-        cmd = read_cmd();
+        read_command(&cmd);
 
-        // TODO use text.c : read_command(...)
-        // TODO parse command
+        if (parse_cmd(b, cmd, &player, &sq_name, &pass, &executed) < 0) {
+            print_error("Commande non reconnue.");
+        }
 
-        free(cmd);
+        /* TODO change current player
+         * TODO interpret player/sq_name/pass/executed values
+         */
     }
 
     close_interface();
+    free(cmd);
+    free(sq_name);
     free(b);
 
     return 0;
