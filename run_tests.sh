@@ -3,7 +3,7 @@
 # use `valgrind` to detect memory leaks
 use_valgrind=0
 
-if [ $# -ge 1] && [ "$1" == "--leaks" ] && [ $(which valgrind) != "" ]; then
+if [ $# -ge 1 ] && [ "$1" == "--leaks" ] && [ $(which valgrind) != "" ]; then
      use_valgrind=1
 fi
 
