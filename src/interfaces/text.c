@@ -21,6 +21,7 @@ int close_interface() {
 int print_board(board *b) {
 
     int r=MAX_SQ, c, pretty_c = 8;
+    char sq;
 
     if (BOARD_PRETTY_PRINT) {
         fputs("   A B C D E F G H\n", stderr);
@@ -31,7 +32,23 @@ int print_board(board *b) {
             fprintf(stderr, "%d ", pretty_c--);
         }
         for (c=MIN_SQ; c<=MAX_SQ; c++) {
-            fprintf(stderr, " %c", b->game_board[c][r]);
+            if (BOARD_COLORS == 0) {
+                fprintf(stderr, " %c", b->game_board[c][r]);
+            } else {
+                /* colors */
+                sq = b->game_board[c][r];
+                if (sq == BLACK_C) {
+                    fprintf(stderr, BOARD_COLOR_B, sq);
+                } else if (sq == WHITE_C) {
+                    fprintf(stderr, BOARD_COLOR_W, sq);
+                } else if ((r+c)%2 == 1) {
+                    sq = (BOARD_PRINT_EMPTY) ? sq : ' ';
+                    fprintf(stderr, BOARD_COLOR_1, sq);
+                } else if ((r+c)%2 == 0) {
+                    sq = (BOARD_PRINT_EMPTY) ? sq : ' ';
+                    fprintf(stderr, BOARD_COLOR_2, sq);
+                }
+            }
         }
         fprintf(stderr, "\n");
     }

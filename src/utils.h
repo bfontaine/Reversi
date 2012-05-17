@@ -10,6 +10,23 @@
 /* print A-H and 1-8 on the sides of the board */
 #define BOARD_PRETTY_PRINT 1
 
+/* use colors */
+#define BOARD_COLORS 1
+
+/* print a character for empty squares */
+#define BOARD_PRINT_EMPTY 0
+
+/* -- colored templates for squares ---------------------------------------- */
+
+/* color for even squares */
+#define BOARD_COLOR_1 "\e[42m %c\e[0m"
+/* color for odd squares */
+#define BOARD_COLOR_2 "\e[43m %c\e[0m"
+/* color for black player */
+#define BOARD_COLOR_B "\e[1;37m\e[40m %c\e[0m"
+/* color for white player */
+#define BOARD_COLOR_W "\e[1;30m\e[47m %c\e[0m"
+
 /* == Game Constants ======================================================= */
 
 #define MIN_SQ 0
@@ -32,8 +49,6 @@
 #define BLACK_NAME "BLACK"
 
 #define FIRST_PLAYER BLACK_C
-
-#define SWITCH_PLAYER(PL) PL=(((PL)==BLACK_C)?WHITE_C:BLACK_C)
 
 #define CAN_PLAY_UPLEFT 1
 #define CAN_PLAY_UP 2
@@ -58,5 +73,9 @@
 
 /*  Pointer-related errors : [P]OINTER -> [2] */
 #define BAD_POINTER -21
+
+/* == Macros =============================================================== */
+
+#define SWITCH_PLAYER(PL) PL=(((PL)==BLACK_C)?WHITE_C:BLACK_C)
 
 #endif /* _UTILS_H */
