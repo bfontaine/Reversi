@@ -20,7 +20,7 @@ int close_interface() {
 
 int print_board(board *b) {
 
-    int r=MAX_SQ, c, pretty_c = 1;
+    int r=MAX_SQ, c, pretty_c = 8;
 
     if (BOARD_PRETTY_PRINT) {
         fputs("   A B C D E F G H\n", stderr);
@@ -28,7 +28,7 @@ int print_board(board *b) {
 
     for (; r>=MIN_SQ; r--) {
         if (BOARD_PRETTY_PRINT) {
-            fprintf(stderr, "%d ", pretty_c++);
+            fprintf(stderr, "%d ", pretty_c--);
         }
         for (c=MIN_SQ; c<=MAX_SQ; c++) {
             fprintf(stderr, " %c", b->game_board[c][r]);
