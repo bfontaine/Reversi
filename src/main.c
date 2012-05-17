@@ -1,7 +1,7 @@
-#include "main.h"
-
 #ifndef _MAIN_C
 #define _MAIN_C 1
+
+#include "main.h"
 
 int main(int argc, char** argv) {
     
@@ -105,6 +105,14 @@ int launch_game() {
             }
             if (move_result == NOT_EMPTY) {
                 print_error("Impossible de jouer ici, la case est déjà occupée.");
+                continue;
+            }
+            if (move_result == OUTSIDE) {
+                print_error("La case est en dehors du plateau.");
+                continue;
+            }
+            if (move_result == NOT_A_SQUARE) {
+                print_error("Nom de case non reconnu.");
                 continue;
             }
         }
