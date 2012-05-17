@@ -16,11 +16,9 @@ default : othello
 
 # othello = reversi
 
-othello : main
-
-#main : main.o board.o game.o text.o
+#othello : main.o board.o game.o text.o
 #	${CC} ${OPT} $^ -o $@
-main: ${SRC}/main.c
+othello: ${SRC}/main.c
 	${CC} ${OPTS} $< -o $@
 
 # tests
