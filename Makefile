@@ -37,13 +37,13 @@ clean :
 #find . -name *.o -delete
 #find . -name a.out -delete
 
-# board.o : ${GAME_SRC}/board.c ${GAME_SRC}/board.h
+# board.o : ${GAME_SRC}/board.c ${GAME_SRC}/board.h ${SRC}/utils.h
 # 	${CC} ${OPT} -c $< -o $@
 # 
-# game.o : ${GAME_SRC}/game.c ${GAME_SRC}/game.h
+# game.o : ${GAME_SRC}/game.c ${GAME_SRC}/game.h ${SRC}/utils.h
 # 	${CC} ${OPT} -c $< -o $@
 # 
-# text.o : ${INTERFACE_SRC}/text.c ${INTERFACE_SRC}/interface.h
+# text.o : ${INTERFACE_SRC}/text.c ${INTERFACE_SRC}/interface.h ${SRC}/utils.h
 # 	${CC} ${OPT} -c $< -o $@
 
 %.o : ${SRC}/%.c
