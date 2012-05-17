@@ -99,13 +99,13 @@ int print_moves(char** moves, int moves_number) {
 int print_winner(char winner) {
 
     if (winner == WHITE_C) {
-        puts("BLANC gagne");
+        puts("BLANC gagne.");
         
     } else if (winner == BLACK_C) {
-        puts("NOIR gagne");
+        puts("NOIR gagne.");
 
     } else if (winner == TIE_C) {
-        puts("Egalite");
+        puts("Egalite.");
     
     }
 
