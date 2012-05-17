@@ -20,17 +20,17 @@ int main(int argc, char** argv) {
 int launch_game() {
 
     int i = 0,
+        white_score = 0,
         pass = 0,
         executed = 0,
         parsing_result = 0,
         move_result = 0,
         moves_nb = 0;
-    const int sqs_nb = (MAX_SQ-MIN_SQ+1)*(MAX_SQ-MIN_SQ+1);
 
     board* b = (board*)malloc(sizeof(board));
     char *cmd = malloc(sizeof(char)*(CMD_MAX_SIZE+1)),
          *sq_name = malloc(sizeof(char)*3),
-         **moves = malloc(sizeof(char*)*sqs_nb);
+         **moves = malloc(sizeof(char*)*SQS_NB);
 
     char current_player = FIRST_PLAYER,
          player = '\0';
@@ -117,6 +117,20 @@ int launch_game() {
             }
         }
 
+        if (is_full(b)) {
+            /* end of the game */
+            white_score = get_score(b, WHITE_C);
+
+            if (white_score > SQS_NB/2) {
+                print_winner(WHITE_C);
+            } else if (white_score == SQS_NB/2) {
+                print_winner(TIE_C);
+            } else {
+                print_winner(BLACK_C);
+            }
+            break;
+        }
+
         SWITCH_PLAYER(current_player);
         puts("OK");
     }
@@ -126,7 +140,7 @@ int launch_game() {
     free(sq_name);
     free(b);
 
-    for (i=0; i<sqs_nb; i++) {
+    for (i=0; i<SQS_NB; i++) {
         free(moves[i]);
     }
     free(moves);
