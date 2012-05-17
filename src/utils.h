@@ -34,6 +34,8 @@
 #define FIRST_LETTER 'A'
 #define FIRST_DIGIT  '1'
 
+#define SQS_NB ((MAX_SQ-MIN_SQ+1)*(MAX_SQ-MIN_SQ+1))
+
 #define EMPTY 0
 #define EMPTY_C '.'
 
