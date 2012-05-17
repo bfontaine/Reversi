@@ -1,6 +1,8 @@
 #include "tests_base.h"
 #include "../src/game/game.c"
 
+#include "../src/interfaces/text.c"
+
 /* compare two moves arrays. Return 1 if they are equal (same moves, the order*/
 /* does not matter), else 0.*/
 int compare_moves_arrays(char** a, char** b, int len) {
@@ -71,47 +73,52 @@ int main(void) {
     assert(get_score(b, WHITE_C) == SCW); \
     assert(get_score(b, BLACK_C) == SCB); \
     assert(get_piece(b, S, &piece) == 0); \
-    assert(piece == P); \
-                               
+    assert(piece == P)         
     
     /* black plays in E6*/
-    T_PLAY(BLACK_C,"E6",2,1,4)
+    T_PLAY(BLACK_C,"E6",2,1,4);
 
     /* white plays in F4*/
-    T_PLAY(WHITE_C,"F4",2,3,3)
+    T_PLAY(WHITE_C,"F4",2,3,3);
 
     /* black plays in E3*/
-    T_PLAY(BLACK_C,"E3",2,2,5)
+    T_PLAY(BLACK_C,"E3",2,2,5);
 
     /* white plays in F6*/
-    T_PLAY(WHITE_C,"F6",2,4,4)
+    T_PLAY(WHITE_C,"F6",2,4,4);
 
     /* black plays in F5*/
-    T_PLAY(BLACK_C,"F5",2,3,6)
+    T_PLAY(BLACK_C,"F5",2,3,6);
 
     /* white plays in D6*/
-    T_PLAY(WHITE_C,"D6",4,7,3)
+    T_PLAY(WHITE_C,"D6",4,7,3);
 
     /* black plays in C6*/
-    T_PLAY(BLACK_C,"C6",2,6,5)
+    T_PLAY(BLACK_C,"C6",2,6,5);
 
     /* white plays in G5*/
-    T_PLAY(WHITE_C,"G5",2,8,4)
+    T_PLAY(WHITE_C,"G5",2,8,4);
 
     /* black plays in G6*/
-    T_PLAY(BLACK_C,"G6",5,4,9)
+    T_PLAY(BLACK_C,"G6",5,4,9);
 
     /* white plays in C5*/
-    T_PLAY(WHITE_C,"C5",2,6,8)
+    T_PLAY(WHITE_C,"C5",2,6,8);
 
     // the board is not full
     assert(is_full(b) == 0);
 
     /* black plays in C4*/
-    T_PLAY(BLACK_C,"C4",4,3,12)
+    T_PLAY(BLACK_C,"C4",4,3,12);
 
     /* white plays in G7*/
-    T_PLAY(WHITE_C,"G7",3,6,10)
+    T_PLAY(WHITE_C,"G7",3,6,10);
+
+    /* black plays in H8 */ 
+    T_PLAY(BLACK_C,"H8",4,3,14);
+
+    /* white plays in C7 */
+    T_PLAY(WHITE_C,"C7",3,6,12);
 
     /* TODO continue game until one player can pass his turn
      * TODO continue game until one player won */
