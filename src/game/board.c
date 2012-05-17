@@ -163,5 +163,18 @@ int init_board(board* b) {
     return 0;
 }
 
+int is_full(board* b) {
+    int i,j;
+
+    for (i=MIN_SQ; i<=MAX_SQ; i++) {
+        for (j=MIN_SQ; j<=MAX_SQ; j++) {
+            if (b->game_board[i][j] == EMPTY_C) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
 /* _BOARD_C */
 #endif

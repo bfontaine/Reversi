@@ -56,5 +56,8 @@ int is_outside_by_colrow(int col, int row);
     white pieces are placed in D4 and E5 positions. */
 int init_board(board* b);
 
+/* check if the board is full */
+int is_full(board* b);
+
 /* _BOARD_H */
 #endif
