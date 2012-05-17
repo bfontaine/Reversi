@@ -32,7 +32,10 @@ int can_play(board *b, int col, int row, char player, int* directions) {
                 if (is_player_by_colrow(b, i, j, player)) {
                     if (!set_directions) {return 1;}
                     *directions |= CAN_PLAY_UPLEFT;
+                } else if (is_empty_by_colrow(b, i, j)) {
+                    break;
                 }
+
             }
         }
 
@@ -42,7 +45,10 @@ int can_play(board *b, int col, int row, char player, int* directions) {
                 if (is_player_by_colrow(b, i, row, player)) {
                     if (!set_directions) {return 1;}
                     *directions |= CAN_PLAY_LEFT;
+                } else if (is_empty_by_colrow(b, i, row)) {
+                    break;
                 }
+
             }
         }
 
@@ -52,7 +58,10 @@ int can_play(board *b, int col, int row, char player, int* directions) {
                 if (is_player_by_colrow(b, i, j, player)) {
                     if (!set_directions) {return 1;}
                     *directions |= CAN_PLAY_DOWNLEFT;
+                } else if (is_empty_by_colrow(b, i, j)) {
+                    break;
                 }
+
             }
         }
 
@@ -66,7 +75,10 @@ int can_play(board *b, int col, int row, char player, int* directions) {
                 if (is_player_by_colrow(b, i, j, player)) {
                     if (!set_directions) {return 1;}
                     *directions |= CAN_PLAY_UPRIGHT;
+                } else if (is_empty_by_colrow(b, i, j)) {
+                    break;
                 }
+
             }
         }
 
@@ -76,16 +88,21 @@ int can_play(board *b, int col, int row, char player, int* directions) {
                 if (is_player_by_colrow(b, i, row, player)) {
                     if (!set_directions) {return 1;}
                     *directions |= CAN_PLAY_RIGHT;
+                } else if (is_empty_by_colrow(b, i, row)) {
+                    break;
                 }
+
             }
         }
 
-        if ((row < MAX_SQ-1) && (is_other_player_by_colrow(b, col+1, row-1, player))) {
+        if ((row >= MIN_SQ+1) && (is_other_player_by_colrow(b, col+1, row-1, player))) {
             /*  8 */
             for (i=col+2, j=row-2; i <= MAX_SQ && j >= MIN_SQ; i++, j--) {
                 if (is_player_by_colrow(b, i, j, player)) {
                     if (!set_directions) {return 1;}
                     *directions |= CAN_PLAY_DOWNRIGHT;
+                } else if (is_empty_by_colrow(b, i, j)) {
+                    break;
                 }
             }
         }
@@ -97,7 +114,10 @@ int can_play(board *b, int col, int row, char player, int* directions) {
             if (is_player_by_colrow(b, col, i, player)) {
                 if (!set_directions) {return 1;}
                 *directions |= CAN_PLAY_DOWN;
+            } else if (is_empty_by_colrow(b, col, i)) {
+                break;
             }
+
         }
     }
 
@@ -107,7 +127,10 @@ int can_play(board *b, int col, int row, char player, int* directions) {
             if (is_player_by_colrow(b, col, i, player)) {
                 if (!set_directions) {return 1;}
                 *directions |= CAN_PLAY_UP;
+            } else if (is_empty_by_colrow(b, col, i)) {
+                break;
             }
+
         }
     }
 
