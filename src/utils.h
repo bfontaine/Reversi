@@ -80,6 +80,8 @@
 
 /* == Macros =============================================================== */
 
-#define SWITCH_PLAYER(PL) PL=(((PL)==BLACK_C)?WHITE_C:BLACK_C)
+#define OTHER_PLAYER(PL) (((PL)==BLACK_C)?WHITE_C:BLACK_C)
+
+#define SWITCH_PLAYER(PL) PL=OTHER_PLAYER(PL)
 
 #endif /* _UTILS_H */
