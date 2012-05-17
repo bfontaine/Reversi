@@ -23,6 +23,7 @@ int launch_game() {
         pass = 0,
         executed = 0,
         parsing_result = 0,
+        move_result = 0,
         moves_nb = 0;
     const int sqs_nb = (MAX_SQ-MIN_SQ+1)*(MAX_SQ-MIN_SQ+1);
 
@@ -96,7 +97,16 @@ int launch_game() {
                 continue;
             }
 
-            play(b, current_player, sq_name);
+            move_result = play(b, current_player, sq_name);
+
+            if (move_result == CANNOT_PLAY_HERE) {
+                print_error("Impossible de jouer ici.");
+                continue;
+            }
+            if (move_result == NOT_EMPTY) {
+                print_error("Impossible de jouer ici, la case est déjà occupée.");
+                continue;
+            }
         }
 
         SWITCH_PLAYER(current_player);
