@@ -53,9 +53,11 @@ int launch_game() {
 
         }
 
+        /* compute possible moves */
         if ((parsing_result == SHOW_MOVES) || pass) {
-            /* compute possible moves */
             moves_nb = get_possible_moves(b, current_player, &moves);
+        } else {
+            moves_nb = get_possible_moves(b, current_player, NULL);
         }
         
         if (parsing_result == PLAY_AGAIN) {
@@ -65,8 +67,7 @@ int launch_game() {
         
         } else if (parsing_result == SHOW_MOVES) {
 
-            printf("%d\n", moves_nb); /* FIXME */
-            print_moves(moves, moves_nb);
+            print_moves(moves, moves_nb); /* FIXME */
             continue;
         }
 
@@ -74,63 +75,44 @@ int launch_game() {
             /* command already executed -> do nothing */
             continue;
 
-        } else {
-
-            if (current_player != player) {
-                if (current_player == BLACK_C) {
-                    print_error("C'est à Noir de jouer.");
-                } else {
-                    print_error("C'est à Blanc de jouer.");
-                }
-                continue;
-            }
-            
-            if (pass) {
-                pass = 0;
-                if (moves_nb) {
-                    printf("ERREUR Le joueur peut jouer en %s\n", moves[0]);
-                } else {
-                    SWITCH_PLAYER(current_player);
-                    puts("OK");
-                }
-                continue;
-            }
-
-            move_result = play(b, current_player, sq_name);
-
-            if (move_result == CANNOT_PLAY_HERE) {
-                print_error("Impossible de jouer ici.");
-                continue;
-            }
-            if (move_result == NOT_EMPTY) {
-                print_error("Impossible de jouer ici, la case est déjà occupée.");
-                continue;
-            }
-            if (move_result == OUTSIDE) {
-                print_error("La case est en dehors du plateau.");
-                continue;
-            }
-            if (move_result == NOT_A_SQUARE) {
-                print_error("Nom de case non reconnu.");
-                continue;
-            }
         }
 
-        if (is_full(b)) {
-            /* end of the game */
+        move_result = play(b, current_player, sq_name);
 
-            /* TODO instead of is_full, test if each player can play */
+        if (move_result == CANNOT_PLAY_HERE) {
+            print_error("Impossible de jouer ici.");
+            continue;
+        }
+        if (move_result == NOT_EMPTY) {
+            print_error("Impossible de jouer ici, la case est dÃ©jÃ  occupÃ©e.");
+            continue;
+        }
+        if (move_result == OUTSIDE) {
+            print_error("La case est en dehors du plateau.");
+            continue;
+        }
+        if (move_result == NOT_A_SQUARE) {
+            print_error("Nom de case non reconnu.");
+            continue;
+        }
 
-            white_score = get_score(b, WHITE_C);
+        if (moves_nb == 0) {
+            moves_nb = get_possible_moves(b, OTHER_PLAYER(current_player), NULL);
 
-            if (white_score > SQS_NB/2) {
-                print_winner(WHITE_C);
-            } else if (white_score == SQS_NB/2) {
-                print_winner(TIE_C);
-            } else {
-                print_winner(BLACK_C);
+            if (moves_nb == 0) {
+                /* nobody can play */
+
+                white_score = get_score(b, WHITE_C);
+
+                if (white_score > SQS_NB/2) {
+                    print_winner(WHITE_C);
+                } else if (white_score == SQS_NB/2) {
+                    print_winner(TIE_C);
+                } else {
+                    print_winner(BLACK_C);
+                }
+                break;
             }
-            break;
         }
 
         SWITCH_PLAYER(current_player);
