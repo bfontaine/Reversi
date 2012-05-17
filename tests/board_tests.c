@@ -10,7 +10,7 @@ int main(void) {
     int col = -1,
         row = -1;
 
-    // convert squares
+    /* convert squares */
     assert(convert_square("A1", &col, &row) == 0);
     assert(col == 0);
     assert(row == 0);
@@ -41,11 +41,11 @@ int main(void) {
 
     assert(convert_square("0", &col, &row) == NOT_A_SQUARE);
 
-    // initialize board
+    /* initialize board */
     assert(init_board(b) == 0);
     assert(init_board(b2) == BAD_POINTER);
     
-    // get piece
+    /* get piece */
 
     assert(get_piece(b, "E4", &p) == 0);
     assert(p == BLACK_C);
@@ -64,7 +64,7 @@ int main(void) {
 
     assert(get_piece(b, "E9", &p) == OUTSIDE);
      
-    // put piece
+    /* put piece */
     p = WHITE_C;
     assert(put_piece(b, "E6", p) == 0);
     p = '_';
@@ -83,13 +83,13 @@ int main(void) {
     assert(get_piece(b, "A1", &p) == 0);
     assert(p == BLACK_C);
 
-    // is empty
+    /* is empty */
     assert(is_empty(b, "A1") == 0);
     assert(is_empty(b, "A2") == 1);
     assert(is_empty(b, "A0") == OUTSIDE);
     assert(is_empty(b, "w") == NOT_A_SQUARE);
 
-    // is player
+    /* is player */
     assert(is_player(b, "D4", BLACK_C) == 0);
     assert(is_player(b, "D4", WHITE_C) == 1);
     assert(is_player(b, "E4", BLACK_C) == 1);
@@ -99,7 +99,7 @@ int main(void) {
     assert(is_player(b, "A0", WHITE_C) == OUTSIDE);
     assert(is_player(b, "w", WHITE_C) == NOT_A_SQUARE);
     
-    // is other player
+    /* is other player */
     assert(is_other_player(b, "D4", BLACK_C) == 1);
     assert(is_other_player(b, "D4", WHITE_C) == 0);
     assert(is_other_player(b, "E4", BLACK_C) == 0);
