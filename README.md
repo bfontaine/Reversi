@@ -17,7 +17,7 @@ Use these commands to play:
 
 To make a move, the command has 3 chars: The first is the name of the current
 player (B for White (*Blanc* in French), and N for Black (*Noir* in French)).
-The next to chars are `PA` if the player wants to pass his turn, or a square
+The next two chars are `PA` if the player wants to pass his turn, or a square
 name (e.g. `B6`, `H2`). For example, if the current player is White and wants to
 play in C3, type:
     
