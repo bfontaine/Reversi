@@ -10,7 +10,7 @@ GAME_SRC=${SRC}/game
 INTERFACE_SRC=${SRC}/interfaces
 
 OPT=-Wall -I $(SRC) -std=c89
-OPT_TESTS=-Wall -I $(SRC_TESTS)
+OPT_TESTS=-Wall -I $(SRC_TESTS) -std=c89
 
 default : othello
 
@@ -19,7 +19,7 @@ default : othello
 #othello : main.o board.o game.o text.o
 #	${CC} ${OPT} $^ -o $@
 othello: ${SRC}/main.c
-	${CC} ${OPTS} $< -o $@
+	${CC} ${OPT} $< -o $@
 
 # tests
 run-tests :
