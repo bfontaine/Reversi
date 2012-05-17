@@ -15,6 +15,8 @@ for f in tests/*_tests.c;do
     tmp_f=${tmp_f##tests/}
 
     assert_nb=$(grep -c "assert(" ${f})
+    tmp_nb=$(grep -c "T_PLAY(" ${f})
+    assert_nb=$((assert_nb+(tmp_nb-2)*5))
     
     tmp_err=$(tempfile)
     rm -f $tmp_err
