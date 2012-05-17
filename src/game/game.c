@@ -164,7 +164,7 @@ int play(board *b, char player, char* square_name) {
 
     if (err) { return err; }
 
-    if (!is_empty_by_colrow(b, row, col)) {
+    if (!is_empty_by_colrow(b, col, row)) {
         return NOT_EMPTY;
     }
 
