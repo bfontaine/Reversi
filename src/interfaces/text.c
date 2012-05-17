@@ -76,21 +76,19 @@ int print_score(int score) {
 
 int print_moves(char** moves, int moves_number) {
     
-    if (!moves_number) { return 0; }
-
-    printf("COUPS %s", moves[0]);
-
-    if (moves_number == 1) {
-        puts(".");
+    if (!moves_number) {
+        puts("COUPS");
         return 0;
     }
 
-    int i=1;
+    printf("COUPS");
+
+    int i=0;
 
     for (; i<moves_number; i++) {
-        printf(", %s", moves[i]);
+        printf(" %2s", moves[i]);
     }
-    puts(".");
+    puts("");
 
     return 0;
 }

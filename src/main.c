@@ -51,24 +51,23 @@ int launch_game() {
             print_error("Commande non reconnue.");
             continue;
 
-        } else if (parsing_result == PLAY_AGAIN) {
+        }
+
+        if ((parsing_result == SHOW_MOVES) || pass) {
+            /* compute possible moves */
+            moves_nb = get_possible_moves(b, current_player, &moves);
+        }
+        
+        if (parsing_result == PLAY_AGAIN) {
             
             puts("OK");
             return PLAY_AGAIN;
         
         } else if (parsing_result == SHOW_MOVES) {
 
-            printf("COUPS");
-            for (i=0; i<moves_nb; i++) {
-                printf(" %s", moves[i]);
-            }
-            puts("");
+            printf("%d\n", moves_nb); /* FIXME */
+            print_moves(moves, moves_nb);
             continue;
-        }
-
-        if ((parsing_result == SHOW_MOVES) || pass) {
-            /* compute possible moves */
-            moves_nb = get_possible_moves(b, player, &moves);
         }
 
         if (executed) {
@@ -119,6 +118,9 @@ int launch_game() {
 
         if (is_full(b)) {
             /* end of the game */
+
+            /* TODO instead of is_full, test if each player can play */
+
             white_score = get_score(b, WHITE_C);
 
             if (white_score > SQS_NB/2) {

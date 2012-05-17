@@ -6,7 +6,7 @@
 
 int can_play(board *b, int col, int row, char player, int* directions) {
     
-    if (is_empty_by_colrow(b, col, row) != 1) {
+    if (!is_empty_by_colrow(b, col, row)) {
         return 0;
     }
 
@@ -48,7 +48,6 @@ int can_play(board *b, int col, int row, char player, int* directions) {
                 } else if (is_empty_by_colrow(b, i, row)) {
                     break;
                 }
-
             }
         }
 
@@ -64,7 +63,6 @@ int can_play(board *b, int col, int row, char player, int* directions) {
 
             }
         }
-
     }
 
     if (col < MAX_SQ-1) {
@@ -110,6 +108,7 @@ int can_play(board *b, int col, int row, char player, int* directions) {
 
     if ((row > 1+MIN_SQ) && (is_other_player_by_colrow(b, col, row-1, player))) {
         /*  7 */
+
         for (i=row-2; i >= MIN_SQ; i--) {
             if (is_player_by_colrow(b, col, i, player)) {
                 if (!set_directions) {return 1;}
@@ -139,14 +138,11 @@ int can_play(board *b, int col, int row, char player, int* directions) {
 
 int get_possible_moves(board *b, char player, char*** moves) {
 
-    int i = MIN_SQ, j, moves_nb=0;
+    int i = MAX_SQ, j, moves_nb=0;
 
-    for (; i <= MAX_SQ; i++) {
+    for (; i >= MIN_SQ; i--) {
         for (j=MIN_SQ; j <= MAX_SQ; j++) {
-            if (!is_empty_by_colrow(b, i, j)) {
-                continue;
-            }
-            if (can_play(b, i, j, player, NULL)) {
+            if (can_play(b, j, i, player, NULL)) {
                 if (moves != NULL) {
                     (*moves)[moves_nb] = (char*)malloc(sizeof(char)*3);
                     (*moves)[moves_nb][0] = FIRST_LETTER+i;
