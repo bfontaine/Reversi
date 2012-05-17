@@ -39,9 +39,11 @@
 
 #define WHITE 1
 #define WHITE_C 'W'
+#define FRENCH_WHITE_C 'B'
 
 #define BLACK 2
 #define BLACK_C 'B'
+#define FRENCH_BLACK_C 'N'
 
 #define TIE_C 'T'
 
