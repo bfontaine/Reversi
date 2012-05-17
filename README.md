@@ -6,8 +6,8 @@ This is a Reversi game for the C class.
 Usage
 -----
 
-Compiling: `make`
-Playing: `./othello --play`
+- Compiling: `make`
+- Playing: `./othello --play`
 
 Use these commands to play:
 - `affiche` : print the board
