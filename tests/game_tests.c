@@ -1,8 +1,6 @@
 #include "tests_base.h"
 #include "../src/game/game.c"
 
-#include "../src/interfaces/text.c"
-
 /* compare two moves arrays. Return 1 if they are equal (same moves, the order*/
 /* does not matter), else 0.*/
 int compare_moves_arrays(char** a, char** b, int len) {
@@ -61,48 +59,59 @@ int main(void) {
     assert(can_play(b, 4, 5, BLACK_C, &directions) == 1);
     assert(can_play(b, 4, 5, BLACK_C, NULL) == 1);
     assert(directions == CAN_PLAY_DOWN);
+
+    /* test a move:
+     *	P: player (WHITE_C or BLACK_C)
+     *	S: square (e.g. "E6")
+     *	SC: score made with this move
+     *	SCW: score for white player
+     *	SCB: score for black player
+     */
+#define T_PLAY(P,S,SC,SCW,SCB) assert(play(b,P,S) == SC); \
+    assert(get_score(b, WHITE_C) == SCW); \
+    assert(get_score(b, BLACK_C) == SCB); \
+    assert(get_piece(b, S, &piece) == 0); \
+    assert(piece == P); \
+                               
     
     /* black plays in E6*/
-    assert(play(b, BLACK_C, "E6") == 2);
-    assert(get_score(b, WHITE_C) == 1);
-    assert(get_score(b, BLACK_C) == 4);
-    assert(get_piece(b, "E6", &piece) == 0);
-    assert(piece == BLACK_C);
+    T_PLAY(BLACK_C,"E6",2,1,4)
 
     /* white plays in F4*/
-    assert(play(b, WHITE_C, "F4") == 2);
-    assert(get_score(b, WHITE_C) == 3);
-    assert(get_score(b, BLACK_C) == 3);
-    assert(get_piece(b, "F4", &piece) == 0);
-    assert(piece == WHITE_C);
+    T_PLAY(WHITE_C,"F4",2,3,3)
 
     /* black plays in E3*/
-    assert(play(b, BLACK_C, "E3") == 2);
-    assert(get_score(b, WHITE_C) == 2);
-    assert(get_score(b, BLACK_C) == 5);
-    assert(get_piece(b, "E3", &piece) == 0);
-    assert(piece == BLACK_C);
+    T_PLAY(BLACK_C,"E3",2,2,5)
 
     /* white plays in F6*/
-    assert(play(b, WHITE_C, "F6") == 2);
-    assert(get_score(b, WHITE_C) == 4);
-    assert(get_score(b, BLACK_C) == 4);
-    assert(get_piece(b, "F6", &piece) == 0);
-    assert(piece == WHITE_C);
+    T_PLAY(WHITE_C,"F6",2,4,4)
 
     /* black plays in F5*/
-    assert(play(b, BLACK_C, "F5") == 2);
-    assert(get_score(b, WHITE_C) == 3);
-    assert(get_score(b, BLACK_C) == 6);
-    assert(get_piece(b, "F5", &piece) == 0);
-    assert(piece == BLACK_C);
+    T_PLAY(BLACK_C,"F5",2,3,6)
 
     /* white plays in D6*/
-    assert(play(b, WHITE_C, "D6") == 4);
-    assert(get_score(b, WHITE_C) == 7);
-    assert(get_score(b, BLACK_C) == 3);
-    assert(get_piece(b, "D6", &piece) == 0);
-    assert(piece == WHITE_C);
+    T_PLAY(WHITE_C,"D6",4,7,3)
+
+    /* black plays in C6*/
+    T_PLAY(BLACK_C,"C6",2,6,5)
+
+    /* white plays in G5*/
+    T_PLAY(WHITE_C,"G5",2,8,4)
+
+    /* black plays in G6*/
+    T_PLAY(BLACK_C,"G6",5,4,9)
+
+    /* white plays in C5*/
+    T_PLAY(WHITE_C,"C5",2,6,8)
+
+    // the board is not full
+    assert(is_full(b) == 0);
+
+    /* black plays in C4*/
+    T_PLAY(BLACK_C,"C4",4,3,12)
+
+    /* white plays in G7*/
+    T_PLAY(WHITE_C,"G7",3,6,10)
 
     /* TODO continue game until one player can pass his turn
      * TODO continue game until one player won */
