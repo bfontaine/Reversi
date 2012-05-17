@@ -120,6 +120,54 @@ int main(void) {
     /* white plays in C7 */
     T_PLAY(WHITE_C,"C7",3,6,12);
 
+    /* black plays in G4 */
+    T_PLAY(BLACK_C,"G4",4,3,16);
+
+    /* white plays in G3 */
+    T_PLAY(WHITE_C,"G3",2,5,15);
+
+    /* black plays in F3 */
+    T_PLAY(BLACK_C,"F3",2,4,17);
+
+    /* white plays in B4 */
+    T_PLAY(WHITE_C,"B4",2,6,16);
+
+    /* black plays in G2 */
+    T_PLAY(BLACK_C,"G2",2,5,18);
+
+    /* white plays in H2 */
+    T_PLAY(WHITE_C,"H2",3,8,16);
+
+    /* black plays in H3 */
+    T_PLAY(BLACK_C,"H3",2,7,18);
+
+    /* white plays in H6 */
+    T_PLAY(WHITE_C,"H6",5,12,14);
+
+    /* black plays in H7 */
+    T_PLAY(BLACK_C,"H7",2,11,16);
+
+    /* white plays in H4 */
+    T_PLAY(WHITE_C,"H4",3,14,14);
+
+    /* black plays in H5 */
+    T_PLAY(BLACK_C,"H5",4,11,18);
+
+    /* white plays in F2 */
+    T_PLAY(WHITE_C,"F2",5,16,14);
+
+    /* black plays in H1 */
+    T_PLAY(BLACK_C,"H1",6,11,20);
+
+    /* white plays in C3 */
+    T_PLAY(WHITE_C,"C3",2,13,19);
+
+    /* black plays in A4 */
+    T_PLAY(BLACK_C,"A4",4,10,23);
+
+    /* white plays in D3 */
+    T_PLAY(WHITE_C,"D3",3,13,21);
+
     /* TODO continue game until one player can pass his turn
      * TODO continue game until one player won */
 
