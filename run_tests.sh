@@ -3,9 +3,15 @@
 # use `valgrind` to detect memory leaks
 use_valgrind=0
 
+# temporary file
+TEMP=.tests.tmp
+
 if [ $# -ge 1 ] && [ "$1" == "--leaks" ] && [ $(which valgrind) != "" ]; then
      use_valgrind=1
 fi
+
+echo -n "Compiling binary... "
+make othello > /dev/null && echo "ok" || echo "fail! "
 
 total_assert_nb=0
 
@@ -57,3 +63,10 @@ for f in tests/*_tests.c;do
 done # 2> /dev/null
 
 echo "TOTAL: ${total_assert_nb} assertions successfully passed."
+
+echo  -n "Running simulated game... "
+
+for f in tests/game_test_*.txt; do
+    ./othello --play < $f > $TEMP
+    # TODO put the winner in the filename and test it
+done

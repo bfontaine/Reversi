@@ -1,4 +1,5 @@
 #include "tests_base.h"
+#include "../src/game/board.c"
 #include "../src/game/game.c"
 
 /* uncomment to use print_board(b) :   */
