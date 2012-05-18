@@ -2,23 +2,16 @@
 #define _MAIN_H 1
 
 #include "utils.h"
-#include "game/board.c"
-#include "game/game.c"
+#include "game/board.h"
+#include "game/game.h"
 
-#ifndef INTERFACE
-#define INTERFACE "interfaces/text.c"
-#endif
+#include "interfaces/interface.h"
 
 #define PLAY_AGAIN 2
 #define SHOW_MOVES 4
 
-#include INTERFACE
-
 /*  start a new game */
 int launch_game();
-
-/*  read a command */
-char* read_cmd();
 
 /*  parse the given 'command'
     'player' should be the name of the current player (WHITE_C or BLACK_C). it

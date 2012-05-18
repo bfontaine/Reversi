@@ -2,8 +2,8 @@
 #define _INTERFACE_H 1
 
 #include "../utils.h"
-#include "../game/board.c"
-#include "../game/game.c"
+#include "../game/board.h"
+#include "../game/game.h"
 
 /*  initialize the interface */
 int init_interface();

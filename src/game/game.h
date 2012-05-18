@@ -2,7 +2,7 @@
 #define _GAME_H 1
 
 #include "../utils.h"
-#include "board.c"
+#include "board.h"
 
 /*  test if 'player' can play here. */
 /*  if 'directions' is not null, the value is set to a combination of */
