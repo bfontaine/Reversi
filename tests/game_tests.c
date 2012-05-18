@@ -1,7 +1,8 @@
 #include "tests_base.h"
 #include "../src/game/game.c"
 
-#include "../src/interfaces/text.c"
+/* uncomment to use print_board(b) :   */
+/* #include "../src/interfaces/text.c" */
 
 /* compare two moves arrays. Return 1 if they are equal (same moves, the order*/
 /* does not matter), else 0.*/
@@ -154,19 +155,19 @@ int main(void) {
     T_PLAY(BLACK_C,"H5",4,11,18);
 
     /* white plays in F2 */
-    T_PLAY(WHITE_C,"F2",5,16,14);
+    T_PLAY(WHITE_C,"F2",6,17,13);
 
     /* black plays in H1 */
-    T_PLAY(BLACK_C,"H1",6,11,20);
+    T_PLAY(BLACK_C,"H1",6,12,19);
 
     /* white plays in C3 */
-    T_PLAY(WHITE_C,"C3",2,13,19);
+    T_PLAY(WHITE_C,"C3",2,14,18);
 
     /* black plays in A4 */
-    T_PLAY(BLACK_C,"A4",4,10,23);
+    T_PLAY(BLACK_C,"A4",4,11,22);
 
     /* white plays in D3 */
-    T_PLAY(WHITE_C,"D3",3,13,21);
+    T_PLAY(WHITE_C,"D3",3,14,20);
 
     /* TODO continue game until one player can pass his turn
      * TODO continue game until one player won */
