@@ -138,6 +138,9 @@ int read_command(char** command) {
     while ((c != EOF) && (c != '\n') && (len+1 < CMD_MAX_SIZE)) {
         if (len+1 < CMD_MAX_SIZE) {
             *((*command)+(len++)) = c;
+        } else {
+            /* don't flush buffer */
+            break;
         }
 
         c = fgetc(stdin);
