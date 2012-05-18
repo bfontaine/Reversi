@@ -33,6 +33,7 @@ clean :
 	rm -f */*/*~
 	rm -f *.o
 	rm -f a.out
+	rm -f .tests.tmp
 #find . -name *~ -delete
 #find . -name *.o -delete
 #find . -name a.out -delete
