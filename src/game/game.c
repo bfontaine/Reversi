@@ -67,7 +67,7 @@ int can_play(board *b, int col, int row, char player, int* directions) {
 
     if (col < MAX_SQ-1) {
 
-        if ((row > 1+MIN_SQ) && (is_other_player_by_colrow(b, col+1, row+1, player))) {
+        if ((row <= MAX_SQ-1) && (is_other_player_by_colrow(b, col+1, row+1, player))) {
             /*  3 */
             for (i=col+2, j=row+2; i <= MAX_SQ && j <= MAX_SQ; i++, j++) {
                 if (is_player_by_colrow(b, i, j, player)) {
@@ -93,7 +93,7 @@ int can_play(board *b, int col, int row, char player, int* directions) {
             }
         }
 
-        if ((row >= MIN_SQ+1) && (is_other_player_by_colrow(b, col+1, row-1, player))) {
+        if ((row > MIN_SQ+1) && (is_other_player_by_colrow(b, col+1, row-1, player))) {
             /*  8 */
             for (i=col+2, j=row-2; i <= MAX_SQ && j >= MIN_SQ; i++, j--) {
                 if (is_player_by_colrow(b, i, j, player)) {
