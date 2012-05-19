@@ -11,7 +11,7 @@ typedef struct {
     /* 0: empty square
        1: white piece
        2: black piece */
-    short game_board[MAX_SQ+1][MAX_SQ+1];
+    unsigned short game_board[MAX_SQ+1][MAX_SQ+1];
 
 } board;
 
