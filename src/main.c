@@ -36,6 +36,10 @@ int launch_game() {
 
     char current_player = FIRST_PLAYER,
          player = '\0';
+
+    for (i=0; i<SQS_NB; i++) {
+        moves[i] = NULL;
+    }
     
     init_board(b);
 
@@ -61,7 +65,7 @@ int launch_game() {
 
         if (moves_nb == 0) {
             other_p_moves_nb
-                = get_possible_moves(b, OTHER_PLAYER(current_player), NULL);
+                = get_possible_moves(b, OTHER_PLAYER(current_player), &moves);
 
             if (other_p_moves_nb == 0) {
                 /* nobody can play */
@@ -136,7 +140,9 @@ int launch_game() {
     free(b);
 
     for (i=0; i<SQS_NB; i++) {
-        free(moves[i]);
+        if (moves[i] != NULL) {
+            free(moves[i]);
+        }
     }
     free(moves);
 

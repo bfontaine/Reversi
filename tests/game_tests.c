@@ -5,13 +5,13 @@
 /* uncomment to use print_board(b) :   */
 /* #include "../src/interfaces/text.c" */
 
-/* compare two moves arrays. Return 1 if they are equal (same moves, the order*/
-/* does not matter), else 0.*/
+/* compare two moves arrays. Return 1 if they are equal (same moves, the order
+   does not matter), else 0.*/
 int compare_moves_arrays(char** a, char** b, int len) {
 
     int i=0, j, ok;
 
-    /* we assume that each array have exactly `len` different values*/
+    /* we assume that each array have exactly 'len' different values*/
 
     for (i=0; i < len; i++) {
         ok = 0;
@@ -29,7 +29,7 @@ int compare_moves_arrays(char** a, char** b, int len) {
 int main(void) {
 
     board* b = (board*)malloc(sizeof(board));
-    char** moves = (char**)malloc(30*sizeof(char*));
+    char** moves = (char**)malloc(SQS_NB*sizeof(char*));
     int i, moves_nb = 0, directions=0;
 
     char* initial_moves_b[] = {"E6", "F5", "C4", "D3"};
@@ -49,6 +49,7 @@ int main(void) {
     assert(compare_moves_arrays(moves, initial_moves_w, moves_nb));
     for (i=0; i<moves_nb; i++) {
         free(moves[i]);
+        moves[i] = NULL;
     }
 
     /* possible first moves with black*/
@@ -58,6 +59,7 @@ int main(void) {
     assert(compare_moves_arrays(moves, initial_moves_b, moves_nb));
     for (i=0; i<moves_nb; i++) {
         free(moves[i]);
+        moves[i] = NULL;
     }
     /* check if black can play in E6*/
     assert(can_play(b, 4, 5, BLACK_C, &directions) == 1);
@@ -172,7 +174,14 @@ int main(void) {
 
     /* TODO continue game until one player can pass his turn
      * TODO continue game until one player won */
-
+/*
+    for (i=0; i<SQS_NB; i++) {
+        if (moves[i] != NULL) {
+            free(moves[i]);
+            moves[i] = NULL;
+        }
+    }
+*/
     free(moves);
     free(b);
 
