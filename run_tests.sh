@@ -54,7 +54,9 @@ for f in tests/*_tests.c;do
     # Checking for memory leaks
     if [ $use_valgrind -eq 1 ]; then
         echo "Checking for memory leaks…"
-        valgrind --tool=memcheck --leak-check=full -q /tmp/$tmp_f 2>&1
+        # Use the first line for quiet mode, and the second for verbose mode
+        #valgrind --tool=memcheck --leak-check=full -q /tmp/$tmp_f 2>&1
+        valgrind --tool=memcheck --leak-check=full --track-origins=yes -v /tmp/$tmp_f 2>&1
     fi
 
     echo "${assert_nb} assertions successfully passed."
