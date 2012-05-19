@@ -59,6 +59,18 @@ typedef struct position {
 
 } position;
 
+/*
+ * An AI.
+ *  p : actual game position
+ *  player_c : player color of the AI (BLACK_C or WHITE_C)
+ */
+typedef struct ai {
+
+    position* p;
+    short player_c;
+
+} ai;
+
 /* compute a position's weight using its column and row */
 #define P_WEIGHT(C,R) ((C==MIN_SQ || C==MAX_SQ) \
                            ? (R==MIN_SQ || R==MAX_SQ) \
@@ -70,6 +82,9 @@ typedef struct position {
 
 /* compute a move's weight */
 #define M_WEIGHT(M) (P_WEIGHT((M).col,(M).row)*(M).points)
+
+/* add a future_move* to a future_move* or a position* */
+#define ADD_FUTURE_MOVE(SELF,F) ((SELF)->moves)[((SELF)->moves_len)++]=(F)
 
 /*
  * Create and return a new future_move given its column and row.
@@ -84,14 +99,10 @@ future_move* create_future_move(int col, int row);
 position* create_position(board* b);
 
 /*
- * Add a future_move to an existing future_move
+ * Create and return a new AI given the current board. It create
+ * also all its future move.
  */
-int m_add_future_move(future_move* self, future_move* fm);
-
-/*
- * Add a future_move to an existing position
- */
-int p_add_future_move(position* self, future_move* fm);
+ai* create_ai(board* b);
 
 /*
  * Free the memory allocated for the given future_move and all its
@@ -103,5 +114,19 @@ int free_future_move(future_move* fm);
  * Free the memory allocated for the given position and all its future moves.
  */
 int free_position(position* p);
+
+/*
+ * Free the memory allocated for the given AI and all its future moves.
+ */
+int free_ai(ai* a);
+
+/* == AI methods =========================================================== */
+
+/*
+ * Read a command from the AI.
+ *  self: current AI
+ *  cmd: 3-chars string which will be filled by the AI
+ */
+int read_ai_command(ai* self, char** cmd);
 
 #endif /* _AI_H */

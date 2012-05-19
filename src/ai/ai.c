@@ -29,16 +29,10 @@ position* create_position(board* b) {
     return p;
 }
 
-int m_add_future_move(future_move* self, future_move* fm) {
+ai* create_ai(board* b) {
+    /* TODO */
 
-
-
-    return 0;
-}
-
-int p_add_future_move(position* self, future_move* fm) {
-    
-    return 0;
+    return NULL;
 }
 
 int free_future_move(future_move* fm) {
@@ -64,6 +58,22 @@ int free_position(position* p) {
     free(p);
     p = NULL;
 
+    return 0;
+}
+
+int free_ai(ai* a) {
+    free_position(a->p);
+    free(a);
+    a = NULL;
+
+    return 0;
+}
+
+int read_ai_command(ai* self, char** cmd) {
+
+    puts("Not implemented.");
+
+    /* TODO */
     return 0;
 }
 
