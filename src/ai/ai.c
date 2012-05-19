@@ -16,32 +16,56 @@ future_move* create_future_move(int col, int row) {
     return fm;
 }
 
-position* create_position(board* b) {
-
-    position* p = (position*)malloc(sizeof(position));
-
-    p->b = b;
-    p->moves = (future_move**)malloc(sizeof(future_move*)*MAX_POSSIBLE_MOVES);
-    p->moves_len = 0;
-
-    /* TODO compute future moves */
-
-    return p;
-}
-
 ai* create_ai(board* b, char player_c) {
     
     board* b2 = board_cp(b);
 
     ai* a = (ai*)malloc(sizeof(ai));
 
-    a->pos = create_position(b2);
+    a->moves = (future_move**)malloc(sizeof(future_move*)*MAX_POSSIBLE_MOVES);
+    a->moves_len = 0;
+    a->b = b2;
     a->player_c = player_c;
+
+    /* TODO compute possible moves */
 
     return a;
 }
 
 int ai_play(ai* self, int col, int row) {
+
+    int i,
+        move_id = -1,
+        moves_len = self->moves_len;
+    future_move *move;
+
+    for (i=0; i<moves_len; i++) {
+        move = (self->moves)[i];
+
+        if ((move->col == col) && (move->row == row)) {
+            move_id = i;
+            break;
+        }
+    }
+    if (move_id < 0) {
+        return CANNOT_PLAY_HERE;
+    }
+
+    /* delete all others possible moves */
+    for (i=0; i<moves_len; i++) {
+        if (move_id != i) {
+            free_future_move((self->moves)[i]);
+        }
+    }
+
+    /* put this move's future moves into current position */
+    self->moves = move->moves;
+    self->moves_len = move->moves_len;
+
+    /* delete this move */
+    move->moves = NULL;
+    free_future_move(move);
+    
     /* TODO */
     return 0;
 }
@@ -59,22 +83,14 @@ int free_future_move(future_move* fm) {
     return 0;
 }
 
-int free_position(position* p) {
+int free_ai(ai* a) {
 
     int i=0;
 
-    for (; i<(p->moves_len); i++) {
-        free_future_move((p->moves)[i]);
+    for (; i<(a->moves_len); i++) {
+        free_future_move((a->moves)[i]);
     }
-    free(p->b);
-    free(p);
-    p = NULL;
-
-    return 0;
-}
-
-int free_ai(ai* a) {
-    free_position(a->pos);
+    free(a->b);
     free(a);
     a = NULL;
 
@@ -82,6 +98,10 @@ int free_ai(ai* a) {
 }
 
 int read_ai_command(ai* self, char** cmd) {
+
+#if VERBOSE_AI
+    printf("AI: My command is \"%s\".\n", *cmd);
+#endif
 
     puts("Not implemented.");
 

@@ -14,6 +14,9 @@
 
 #define MAX_DEEP 8
 
+#define VERBOSE_AI 1
+
+
 /* TODO lower this number using tests */
 #define MAX_POSSIBLE_MOVES 40
 
@@ -44,29 +47,21 @@ typedef struct future_move {
 } future_move;
 
 /*
- * A position
+ * An AI
  *  b : actual game board
  *
  *  moves : possible moves with this position
  *  moves_len : number of possible moves
+ *
+ *  player_c : char of the player (BLACK_C or WHITE_C)
  */
-typedef struct position {
+typedef struct ai {
 
     board* b;
 
     struct future_move **moves;
     short moves_len;
 
-} position;
-
-/*
- * An AI.
- *  pos : actual game position
- *  player_c : player color of the AI (BLACK_C or WHITE_C)
- */
-typedef struct ai {
-
-    position* pos;
     short player_c;
 
 } ai;
@@ -93,12 +88,6 @@ typedef struct ai {
 future_move* create_future_move(int col, int row);
 
 /*
- * Create and return a new position given the current board. It create
- * also every future move. Not that the board is NOT copied.
- */
-position* create_position(board* b);
-
-/*
  * Create and return a new AI given the current board. It create
  * also all its future move. Note that the board is copied.
  */
@@ -115,11 +104,6 @@ int ai_play(ai* self, int col, int row);
  * children.
  */
 int free_future_move(future_move* fm);
-
-/*
- * Free the memory allocated for the given position and all its future moves.
- */
-int free_position(position* p);
 
 /*
  * Free the memory allocated for the given AI and all its future moves.
