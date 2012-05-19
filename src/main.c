@@ -6,18 +6,32 @@
 int main(int argc, char** argv) {
     
     if (argc <= 1) {
-        puts("Use --play to play.");
+        puts(HELP_STR);
         return 0;
     }
 
-    if (!strcmp(argv[1], "--play")) {
-        while (launch_game() == PLAY_AGAIN);
+    char ai_player = '\0';
+
+    if (!strcmp(argv[1], "--blanc")) {
+        ai_player = WHITE_C;
+    }
+    else if (!strcmp(argv[1], "--noir")) {
+        ai_player = BLACK_C;
+    }
+
+    if ((!strcmp(argv[1], "--play")) || (ai_player != '\0')) {
+        while (launch_game(ai_player) == PLAY_AGAIN);
     }
 
     return 0;
 }
 
-int launch_game() {
+int launch_game(char ai_player) {
+
+    /* Read a command from the player P (char). C is the command (char**). if
+     * the player is the AI, use the AI function, else use the interface
+     * function */
+#define READ_COMMAND(P,C) (P==ai_player)? read_ai_command(AI,C) : read_command(C)
 
     int i = 0,
         white_score = 0,
@@ -45,19 +59,20 @@ int launch_game() {
 
     init_interface();
 
+    ai* AI = (ai_player == '\0') ? NULL : create_ai(b);
+
     while (1) {
         pass = 0;
         executed = 0;
         moves_nb = -1;
-        read_command(&cmd);
+        READ_COMMAND(current_player, &cmd);
 
         parsing_result = parse_cmd(b, cmd, &player, &sq_name, &pass, &executed);
 
-        if (parsing_result < 0) {
+         if ((parsing_result < 0) && (parsing_result != EMPTY_COMMAND)) {
             
             print_error("Commande non reconnue.");
             continue;
-
         }
 
         /* compute possible moves */
@@ -81,6 +96,10 @@ int launch_game() {
                 }
                 break;
             }
+        }
+        
+        if (parsing_result == EMPTY_COMMAND) {
+            continue;
         }
 
         if (pass) {
@@ -174,6 +193,10 @@ int parse_cmd(board* b, char *command, char *player,
         /*  print board */
         *executed = 1;
         return print_board(b);
+    }
+
+    if (strlen(command) == 0) {
+        return EMPTY_COMMAND;
     }
 
     if (

@@ -4,14 +4,20 @@
 #include "utils.h"
 #include "game/board.h"
 #include "game/game.h"
+#include "ai/ai.h"
 
 #include "interfaces/interface.h"
 
 #define PLAY_AGAIN 2
 #define SHOW_MOVES 4
 
-/*  start a new game */
-int launch_game();
+#define HELP_STR "Use --play to play."
+
+/*  start a new game
+     ia_player should be '\0' without AI, BLACK_C if the AI is black, or
+     WHITE_C if the AI is white.
+ */
+int launch_game(char ai_player);
 
 /*  parse the given 'command'
     'player' should be the name of the current player (WHITE_C or BLACK_C). it
