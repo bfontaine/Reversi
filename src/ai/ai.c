@@ -29,11 +29,19 @@ position* create_position(board* b) {
     return p;
 }
 
-ai* create_ai(board* b) {
-    /* TODO */
+ai* create_ai(board* b, char player_c) {
+    
+    board* b2 = board_cp(b);
 
-    return NULL;
+    ai* a = (ai*)malloc(sizeof(ai));
+
+    a->pos = create_position(b2);
+    a->player_c = player_c;
+
+    return a;
 }
+
+int play(ai*, int col, int row);
 
 int free_future_move(future_move* fm) {
 
@@ -55,6 +63,7 @@ int free_position(position* p) {
     for (; i<(p->moves_len); i++) {
         free_future_move((p->moves)[i]);
     }
+    free(p->b);
     free(p);
     p = NULL;
 
@@ -62,7 +71,7 @@ int free_position(position* p) {
 }
 
 int free_ai(ai* a) {
-    free_position(a->p);
+    free_position(a->pos);
     free(a);
     a = NULL;
 
@@ -73,7 +82,7 @@ int read_ai_command(ai* self, char** cmd) {
 
     puts("Not implemented.");
 
-    /* TODO */
+    /* TODO read_ai_command */
     return 0;
 }
 

@@ -61,12 +61,12 @@ typedef struct position {
 
 /*
  * An AI.
- *  p : actual game position
+ *  pos : actual game position
  *  player_c : player color of the AI (BLACK_C or WHITE_C)
  */
 typedef struct ai {
 
-    position* p;
+    position* pos;
     short player_c;
 
 } ai;
@@ -94,15 +94,21 @@ future_move* create_future_move(int col, int row);
 
 /*
  * Create and return a new position given the current board. It create
- * also every future move.
+ * also every future move. Not that the board is NOT copied.
  */
 position* create_position(board* b);
 
 /*
  * Create and return a new AI given the current board. It create
- * also all its future move.
+ * also all its future move. Note that the board is copied.
  */
-ai* create_ai(board* b);
+ai* create_ai(board* b, char player_c);
+
+/*
+ * Make the AI plays in col/row. All the tree of future moves will be
+ * adapted to the new position.
+ */
+int play(ai*, int col, int row);
 
 /*
  * Free the memory allocated for the given future_move and all its
