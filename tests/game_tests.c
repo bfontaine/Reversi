@@ -172,16 +172,6 @@ int main(void) {
     /* white plays in D3 */
     T_MOVE(WHITE_C,"D3",3,14,20);
 
-    /* TODO continue game until one player can pass his turn
-     * TODO continue game until one player won */
-/*
-    for (i=0; i<SQS_NB; i++) {
-        if (moves[i] != NULL) {
-            free(moves[i]);
-            moves[i] = NULL;
-        }
-    }
-*/
     free(moves);
     free(b);
 
