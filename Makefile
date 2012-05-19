@@ -10,7 +10,7 @@ GAME_SRC=${SRC}/game
 INTERFACE_SRC=${SRC}/interfaces
 AI_SRC=${SRC}/ai
 
-BASIC_OPT=-std=c89 -Wall -Wextra -Wundef
+BASIC_OPT=-std=c89 -Wall -Wextra -Wundef -Werror
 OPT=${BASIC_OPT} -I $(SRC)
 OPT_TESTS=${BASIC_OPT} -I $(SRC_TESTS)
 
