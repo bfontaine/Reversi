@@ -8,14 +8,17 @@ SRC=src
 SRC_TESTS=tests
 GAME_SRC=${SRC}/game
 INTERFACE_SRC=${SRC}/interfaces
+AI_SRC=${SRC}/ai
 
 BASIC_OPT=-std=c89 -Wall -Wextra -Wundef
 OPT=${BASIC_OPT} -I $(SRC)
 OPT_TESTS=${BASIC_OPT} -I $(SRC_TESTS)
 
-OBJS=board.o game.o text.o main.o
+OBJS=board.o game.o text.o ai.o main.o
 
+# @: force default to do not try to make default.o using the last target
 default : othello
+	@
 
 # othello = reversi
 
@@ -35,21 +38,19 @@ clean :
 	rm -f ${OBJS}
 	rm -f a.out
 	rm -f .tests.tmp
-#find . -name *~ -delete
-#find . -name *.o -delete
-#find . -name a.out -delete
+	@# alternatives:
+	@#find . -name *~ -delete
+	@#find . -name *.o -delete
+	@#find . -name a.out -delete
 
 cleanall : clean
 	rm -f othello
 
 board.o : ${GAME_SRC}/board.c ${GAME_SRC}/board.h ${SRC}/utils.h
-	${CC} ${OPT} -c $< -o $@
-
 game.o : ${GAME_SRC}/game.c ${GAME_SRC}/game.h ${SRC}/utils.h
-	${CC} ${OPT} -c $< -o $@
-
 text.o : ${INTERFACE_SRC}/text.c ${INTERFACE_SRC}/interface.h ${SRC}/utils.h
-	${CC} ${OPT} -c $< -o $@
+ai.o : ${AI_SRC}/ai.c ${AI_SRC}/ai.h
+main.o : ${SRC}/main.c ${SRC}/main.h
 
-%.o : ${SRC}/%.c ${SRC}/%.h
+%.o :
 	${CC} ${OPT} -c $< -o $@
