@@ -74,6 +74,7 @@
 
 /*  Game-related errors: [G]ame -> [6] */
 #define CANNOT_PLAY_HERE -61
+#define EMPTY_COMMAND -62
 
 /*  Pointer-related errors : [P]OINTER -> [2] */
 #define BAD_POINTER -21
