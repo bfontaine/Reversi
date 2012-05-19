@@ -12,12 +12,20 @@ int main(int argc, char** argv) {
 
     char ai_player = '\0';
 
+#ifdef WHITE_AI
+    ai_player = WHITE_C;
+#else
+#ifdef BLACK_AI
+    ai_player = BLACK_C;
+#else
     if (!strcmp(argv[1], "--blanc")) {
         ai_player = WHITE_C;
     }
     else if (!strcmp(argv[1], "--noir")) {
         ai_player = BLACK_C;
     }
+#endif
+#endif
 
     if ((!strcmp(argv[1], "--play")) || (ai_player != '\0')) {
         while (launch_game(ai_player) == PLAY_AGAIN);
