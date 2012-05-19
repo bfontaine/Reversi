@@ -109,9 +109,6 @@ int main(void) {
     assert(is_other_player(b, "A0", WHITE_C) == OUTSIDE);
     assert(is_other_player(b, "w", WHITE_C) == NOT_A_SQUARE);
 
-    /* is_full */
-    assert(is_full(b) == 0);
-
     free(b);
 
     return 0;
