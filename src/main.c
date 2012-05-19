@@ -59,7 +59,7 @@ int launch_game(char ai_player) {
 
     init_interface();
 
-    ai* AI = (ai_player == '\0') ? NULL : create_ai(b);
+    ai* AI = (ai_player == '\0') ? NULL : create_ai(b, ai_player);
 
     while (1) {
         pass = 0;
