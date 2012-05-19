@@ -109,9 +109,6 @@ int main(void) {
     /* white plays in C5*/
     T_MOVE(WHITE_C,"C5",2,6,8);
 
-    // the board is not full
-    assert(is_full(b) == 0);
-
     /* black plays in C4*/
     T_MOVE(BLACK_C,"C4",4,3,12);
 
