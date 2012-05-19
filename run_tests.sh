@@ -64,9 +64,22 @@ done # 2> /dev/null
 
 echo "TOTAL: ${total_assert_nb} assertions successfully passed."
 
-echo  -n "Running simulated game... "
+echo "Running simulated games: "
 
 for f in tests/game_test_*.txt; do
+
+    echo -n "- "
+
+    winner=${f%%Wins*}
+    winner=${winner##*game_test_}
+    winner_fr='BLANC'
+    [ $winner == 'Black' ] && winner_fr='NOIR'
+    
     ./othello --play < $f > $TEMP
-    # TODO put the winner in the filename and test it
+
+    result=$(tail -1 ${TEMP}) 
+
+    [ "$result" != "$winner_fr gagne." ] && echo "fail! Bad winner." || echo "ok"
+
+    # TODO check if every other line is 'OK'
 done
