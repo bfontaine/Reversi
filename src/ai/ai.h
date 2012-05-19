@@ -40,6 +40,7 @@ typedef struct future_move {
     unsigned short row;
 
     short points;
+    int weight;
 
     struct future_move **moves;
     short moves_len;
@@ -54,6 +55,7 @@ typedef struct future_move {
  *  moves_len : number of possible moves
  *
  *  player_c : char of the player (BLACK_C or WHITE_C)
+ *  current_player_c : char of the current player (BLACK_C or WHITE_C)
  */
 typedef struct ai {
 
@@ -63,11 +65,12 @@ typedef struct ai {
     short moves_len;
 
     short player_c;
+    short current_player_c;
 
 } ai;
 
 /* compute a position's weight using its column and row */
-#define P_WEIGHT(C,R) ((C==MIN_SQ || C==MAX_SQ) \
+#define _P_WEIGHT(C,R) ((C==MIN_SQ || C==MAX_SQ) \
                            ? (R==MIN_SQ || R==MAX_SQ) \
                                 ? CORNER_WEIGHT \
                                 : SIDE_WEIGHT \
@@ -76,9 +79,9 @@ typedef struct ai {
                                 : DEFAULT_WEIGHT)
 
 /* compute a move's weight */
-#define M_WEIGHT(M) (P_WEIGHT((M).col,(M).row)*(M).points)
+#define M_WEIGHT(M) (_P_WEIGHT((M).col,(M).row)*(M).points)
 
-/* add a future_move* to a future_move* or a position* */
+/* add a future_move* to a future_move* or an ai* */
 #define ADD_FUTURE_MOVE(SELF,F) ((SELF)->moves)[((SELF)->moves_len)++]=(F)
 
 /*
@@ -92,6 +95,19 @@ future_move* create_future_move(int col, int row);
  * also all its future move. Note that the board is copied.
  */
 ai* create_ai(board* b, char player_c);
+
+/*
+ * Compute moves after the move 'fm', using the board 'b' as a reference
+ * for the current position. This is a recursive function. Do nothing if
+ * 'deep' < 1. Returns the weight of the given move.
+ */
+int compute_moves(future_move* self, board* b, char player, int deep);
+
+/*
+ * Make the AI plays its best move. All the tree of future moves will be
+ * adapted to the new position. The move is put in 'sq'.
+ */
+int ai_play_best_move(ai* self, char** sq);
 
 /*
  * Make the AI plays in col/row. All the tree of future moves will be
