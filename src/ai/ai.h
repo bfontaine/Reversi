@@ -108,7 +108,7 @@ ai* create_ai(board* b, char player_c);
  * Make the AI plays in col/row. All the tree of future moves will be
  * adapted to the new position.
  */
-int play(ai*, int col, int row);
+int ai_play(ai* self, int col, int row);
 
 /*
  * Free the memory allocated for the given future_move and all its

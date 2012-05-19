@@ -41,7 +41,10 @@ ai* create_ai(board* b, char player_c) {
     return a;
 }
 
-int play(ai*, int col, int row);
+int ai_play(ai* self, int col, int row) {
+    /* TODO */
+    return 0;
+}
 
 int free_future_move(future_move* fm) {
 
