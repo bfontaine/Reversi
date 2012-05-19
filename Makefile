@@ -9,8 +9,9 @@ SRC_TESTS=tests
 GAME_SRC=${SRC}/game
 INTERFACE_SRC=${SRC}/interfaces
 
-OPT=-Wall -I $(SRC) -std=c89
-OPT_TESTS=-Wall -I $(SRC_TESTS) -std=c89
+BASIC_OPT=-std=c89 -Wall -Wextra -Wundef
+OPT=${BASIC_OPT} -I $(SRC)
+OPT_TESTS=${BASIC_OPT} -I $(SRC_TESTS)
 
 OBJS=board.o game.o text.o main.o
 
@@ -31,12 +32,15 @@ clean :
 	rm -f *~
 	rm -f */*~
 	rm -f */*/*~
-	rm -f *.o
+	rm -f ${OBJS}
 	rm -f a.out
 	rm -f .tests.tmp
 #find . -name *~ -delete
 #find . -name *.o -delete
 #find . -name a.out -delete
+
+cleanall : clean
+	rm -f othello
 
 board.o : ${GAME_SRC}/board.c ${GAME_SRC}/board.h ${SRC}/utils.h
 	${CC} ${OPT} -c $< -o $@

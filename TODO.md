@@ -1,3 +1,2 @@
 - Add `if (X == NULL)` after each `X = malloc(…)` to test if `malloc` failed.
 - Check errors reported by Valgrind
-- add a `cleanall` target
