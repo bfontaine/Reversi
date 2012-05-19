@@ -5,7 +5,7 @@
 
 future_move* create_future_move(int col, int row) {
 
-    future_move *fm = (future_move*)malloc(sizeof(future_move));
+    future_move *fm = (future_move*)malloc(sizeof(future_move)); /* FIXME */
 
     fm->col = col;
     fm->row = row;
@@ -64,10 +64,18 @@ int compute_moves(future_move* self, board* b, char player, int deep) {
                              b2,
                              OTHER_PLAYER(player),
                              deep-1);
+        /* FIXME segfault après l'appel à la ligne précédente */
 
         free(b2);
         b2 = NULL;
     }
+
+    for (i=0; i<moves_c_len; i++) {
+        if (moves_c[i] != NULL) {
+            free(moves_c[i]);
+        }
+    }
+    free(moves_c);
     
     return self->weight;
 }

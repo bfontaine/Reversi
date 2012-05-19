@@ -173,6 +173,10 @@ int launch_game(char ai_player) {
     }
     free(moves);
 
+    if (AI != NULL) {
+        free_ai(AI);
+    }
+
     return return_value;
 }
 
