@@ -112,7 +112,7 @@ int launch_game(char ai_player) {
 
         if (pass) {
             if (moves_nb > 0) {
-                printf("ERREUR il est possible de jouer en %s\n", moves[i]);
+                printf("ERREUR il est possible de jouer en %s\n", moves[0]);
                 continue;
             } else {
                 puts("OK");
