@@ -17,7 +17,7 @@ future_move* create_future_move(int col, int row) {
     return fm;
 }
 
-int compute_moves(future_move* self, board* b, char player, int deep) {
+int compute_moves(future_move* self, board* b, char player, int deep, short is_ia) {
     if (deep < 1) {
         return 0;
     }
@@ -39,6 +39,7 @@ int compute_moves(future_move* self, board* b, char player, int deep) {
     moves_c_len = get_possible_moves(b, player, &moves_c);
 
     if (moves_c_len == 0) {
+            /* pass */
             fm = create_future_move(-1,-1);
             ADD_FUTURE_MOVE(self, fm);
     } else {
@@ -47,8 +48,8 @@ int compute_moves(future_move* self, board* b, char player, int deep) {
 
             /* create a future move with good points/weight and col/row */
             fm = create_future_move(col, row);
-            fm->points = play(b, player, moves_c[i]);
-            put_piece(b, moves_c[i], EMPTY_C); 
+            fm->points = play(b, player, moves_c[i]); /* simule the move */
+            put_piece(b, moves_c[i], EMPTY_C);  /* remove the piece */
             fm->weight = M_WEIGHT(*fm);
 
             ADD_FUTURE_MOVE(self, fm);
@@ -58,47 +59,44 @@ int compute_moves(future_move* self, board* b, char player, int deep) {
     for (i=0; i<(self->moves_len); i++) {
         b2 = board_cp(b);
 
-        /* TODO if it's other player's turn, replace '+=' with '-=' */
         self->weight
-            += compute_moves((self->moves)[i],
-                             b2,
-                             OTHER_PLAYER(player),
-                             deep-1);
-        /* FIXME segfault après l'appel à la ligne précédente */
+            += (-1*(!is_ia))*compute_moves((self->moves)[i],
+                                 b2,
+                                 OTHER_PLAYER(player),
+                                 deep-1,
+                                 !is_ia);
 
-        free(b2);
-        b2 = NULL;
+        free(b2); b2 = NULL;
     }
 
     for (i=0; i<moves_c_len; i++) {
         if (moves_c[i] != NULL) {
-            free(moves_c[i]);
+            free(moves_c[i]); moves_c[i] = NULL;
         }
     }
-    free(moves_c);
+    free(moves_c); moves_c = NULL;
     
     return self->weight;
 }
 
 ai* create_ai(board* b, char player_c) {
     
-    board* b2 = board_cp(b);
     ai* a = (ai*)malloc(sizeof(ai));
 
     future_move *fm = create_future_move(-1,-1);
 
     a->moves = (future_move**)malloc(sizeof(future_move*)*MAX_POSSIBLE_MOVES);
     a->moves_len = 0;
-    a->b = b2;
+    a->b = board_cp(b);
     a->player_c = player_c;
     a->current_player_c = FIRST_PLAYER;
 
-    compute_moves(fm, b, player_c, MAX_DEEP);
+    compute_moves(fm, a->b, player_c, MAX_DEEP, (player_c == FIRST_PLAYER));
 
     a->moves = fm->moves;
     a->moves_len = fm->moves_len;
 
-    free(fm);
+    free(fm); fm = NULL;
 
     return a;
 }
@@ -175,8 +173,8 @@ int free_future_move(future_move* fm) {
     for (; i<(fm->moves_len); i++) {
         free_future_move((fm->moves)[i]);
     }
-    free(fm);
-    fm = NULL;
+    free(fm->moves); fm->moves = NULL;
+    free(fm); fm = NULL;
 
     return 0;
 }
@@ -188,9 +186,9 @@ int free_ai(ai* a) {
     for (; i<(a->moves_len); i++) {
         free_future_move((a->moves)[i]);
     }
-    free(a->b);
-    free(a);
-    a = NULL;
+    free(a->moves); a->moves = NULL;
+    free(a->b); a->b = NULL;
+    free(a); a = NULL;
 
     return 0;
 }
@@ -201,6 +199,9 @@ int read_ai_command(ai* self, char** cmd) {
          name = (self->player_c == BLACK_C) ? 'N' : 'B';
 
     ai_play_best_move(self, &sq);
+
+    /* TODO find a way to transmit other player's move to AI, to
+     * update the board */
 
     (*cmd)[0] = name;
     (*cmd)[1] = sq[0];
