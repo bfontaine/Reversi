@@ -165,7 +165,16 @@ int init_board(board* b) {
 
 board* board_cp(board* b) {
 
+    if (b == NULL) {
+        return NULL;
+    }
+
     board *b2 = (board*)malloc(sizeof(board));
+
+    if (b2 == NULL) {
+        /* malloc failed */
+        return NULL;
+    }
 
     int i,j;
 

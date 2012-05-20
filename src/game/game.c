@@ -143,7 +143,8 @@ int get_possible_moves(board *b, char player, char*** moves) {
     for (; i >= MIN_SQ; i--) {
         for (j=MIN_SQ; j <= MAX_SQ; j++) {
             if (can_play(b, j, i, player, NULL)) {
-                if ((*moves)[moves_nb] == NULL) {
+                if (NULL == (*moves)[moves_nb]) {
+                    free((*moves)[moves_nb]);
                     (*moves)[moves_nb] = (char*)malloc(sizeof(char)*3);
                 }
                 (*moves)[moves_nb][0] = FIRST_LETTER+i;
