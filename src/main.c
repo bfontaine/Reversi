@@ -51,10 +51,15 @@ int launch_game(char ai_player) {
         other_p_moves_nb = 0,
         return_value = 0;
 
-    board* b = (board*)malloc(sizeof(board));
-    char *cmd = malloc(sizeof(char)*(CMD_MAX_SIZE+1)),
-         *sq_name = malloc(sizeof(char)*3),
-         **moves = malloc(sizeof(char*)*SQS_NB);
+    board* b = NULL;
+    char *cmd = NULL,
+         *sq_name = NULL,
+         **moves = NULL;
+
+    b = (board*)malloc(sizeof(board));
+    cmd = malloc(sizeof(char)*(CMD_MAX_SIZE+1));
+    sq_name = malloc(sizeof(char)*3);
+    moves = malloc(sizeof(char*)*SQS_NB);
 
     char current_player = FIRST_PLAYER,
          player = '\0';

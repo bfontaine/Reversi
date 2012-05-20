@@ -5,7 +5,10 @@
 
 future_move* create_future_move(int col, int row) {
 
-    future_move *fm = (future_move*)malloc(sizeof(future_move)); /* FIXME */
+    int i;
+
+    future_move *fm = NULL;
+    fm = (future_move*)malloc(sizeof(future_move));
 
     fm->col = col;
     fm->row = row;
@@ -13,6 +16,10 @@ future_move* create_future_move(int col, int row) {
     fm->weight = 0;
     fm->moves = (future_move**)malloc(sizeof(future_move*)*MAX_POSSIBLE_MOVES);
     fm->moves_len = 0;
+
+    for (i=0; i<MAX_POSSIBLE_MOVES; i++) {
+        fm->moves[i] = NULL;
+    }
 
     return fm;
 }
@@ -22,16 +29,22 @@ int compute_moves(future_move* self, board* b, char player, int deep, short is_i
         return 0;
     }
 
+    int i, moves_c_len = 0,
+        col = -1,
+        row = -1;
+    
+
     if (self->points != 0) {
         /* if AI does not pass the turn */
         put_piece_by_colrow(b, self->col, self->row, player);
     }
 
-    char **moves_c = (char**)malloc(sizeof(char*)*MAX_POSSIBLE_MOVES);
-    
-    int i, moves_c_len = 0,
-        col = -1,
-        row = -1;
+    char **moves_c = NULL;
+    moves_c = (char**)malloc(sizeof(char*)*MAX_POSSIBLE_MOVES);
+
+    for (i=0; i<MAX_POSSIBLE_MOVES; i++) {
+        moves_c[i] = NULL;
+    }
     
     board* b2 = NULL;
     future_move* fm = NULL;
@@ -85,7 +98,6 @@ ai* create_ai(board* b, char player_c) {
 
     future_move *fm = create_future_move(-1,-1);
 
-    a->moves = (future_move**)malloc(sizeof(future_move*)*MAX_POSSIBLE_MOVES);
     a->moves_len = 0;
     a->b = board_cp(b);
     a->player_c = player_c;
@@ -108,10 +120,12 @@ int ai_play_best_move(ai* self, char** sq) {
         return ai_play(self, -1, -1);
     }
 
+    future_move* best_move = NULL;
+
     int i,
         max_weight = (self->moves)[0]->weight;
 
-    future_move* best_move = NULL;
+    best_move = (self->moves)[0];
 
     for (i=1; i<(self->moves_len); i++) {
         if ((self->moves)[i]->weight > max_weight) {
@@ -120,8 +134,8 @@ int ai_play_best_move(ai* self, char** sq) {
         }
     }
 
-    (*sq)[0] = FIRST_LETTER + best_move->col;
-    (*sq)[1] = FIRST_DIGIT + best_move->row;
+    (*sq)[0] = FIRST_LETTER + (best_move->col);
+    (*sq)[1] = FIRST_DIGIT + (best_move->row);
     (*sq)[2] = '\n';
 
     return ai_play(self, best_move->col, best_move->row);
@@ -167,13 +181,18 @@ int ai_play(ai* self, int col, int row) {
 }
 
 int free_future_move(future_move* fm) {
+    if (fm == NULL) {
+        return 0;
+    }
 
     int i=0;
 
-    for (; i<(fm->moves_len); i++) {
-        free_future_move((fm->moves)[i]);
+    if (fm->moves != NULL) {
+        for (; i<(fm->moves_len); i++) {
+            free_future_move((fm->moves)[i]);
+        }
+        free(fm->moves); fm->moves = NULL;
     }
-    free(fm->moves); fm->moves = NULL;
     free(fm); fm = NULL;
 
     return 0;

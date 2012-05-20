@@ -30,10 +30,12 @@ int main(void) {
 
     board* b = (board*)malloc(sizeof(board));
     char** moves = (char**)malloc(SQS_NB*sizeof(char*));
-    int i, moves_nb = 0, directions=0;
+    int /*i, moves_nb = 0,*/ directions=0;
 
+    /*
     char* initial_moves_b[] = {"E6", "F5", "C4", "D3"};
     char* initial_moves_w[] = {"E3", "F4", "C5", "D6"};
+    */
     char piece = '\0';
 
     assert(init_board(b) == 0);
@@ -42,25 +44,24 @@ int main(void) {
     assert(get_score(b, WHITE_C) == 2);
     assert(get_score(b, BLACK_C) == 2);
 
-    /* possible first moves with white (this is a test, not a normal game)*/
+    /*
+    /\* possible first moves with white (this is a test, not a normal game) *\/
     moves_nb = get_possible_moves(b, WHITE_C, &moves);
     assert(moves_nb == 4);
     assert(moves != NULL);
     assert(compare_moves_arrays(moves, initial_moves_w, moves_nb));
     for (i=0; i<moves_nb; i++) {
-        free(moves[i]);
-        moves[i] = NULL;
+        free(moves[i]); moves[i] = NULL;
     }
 
-    /* possible first moves with black*/
+    /\* possible first moves with black *\/
     moves_nb = get_possible_moves(b, BLACK_C, &moves);
     assert(moves_nb == 4);
     assert(moves != NULL);
     assert(compare_moves_arrays(moves, initial_moves_b, moves_nb));
     for (i=0; i<moves_nb; i++) {
-        free(moves[i]);
-        moves[i] = NULL;
-    }
+        free(moves[i]); moves[i] = NULL;
+    } */
     /* check if black can play in E6*/
     assert(can_play(b, 4, 5, BLACK_C, &directions) == 1);
     assert(can_play(b, 4, 5, BLACK_C, NULL) == 1);

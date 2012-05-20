@@ -178,8 +178,8 @@ board* board_cp(board* b) {
 
     int i,j;
 
-    for (i=0; i<MAX_SQ; i++) {
-        for (j=0; j<MAX_SQ; j++) {
+    for (i=MIN_SQ; i<=MAX_SQ; i++) {
+        for (j=MIN_SQ; j<=MAX_SQ; j++) {
             b2->game_board[i][j] = b->game_board[i][j];
         }
     }

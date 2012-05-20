@@ -7,7 +7,7 @@
 int main(int argc, char **argv) {
 
     board* b = (board*)malloc(sizeof(board));
-    init_board(b);
+    assert(init_board(b) == 0);
 
     ai* AI = create_ai(b, BLACK_C);
 

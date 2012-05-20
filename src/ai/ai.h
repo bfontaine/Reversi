@@ -12,10 +12,9 @@
 #define SIDE_WEIGHT 3
 #define DEFAULT_WEIGHT 1
 
-#define MAX_DEEP 8
+#define MAX_DEEP 2
 
 #define VERBOSE_AI 1
-
 
 /* TODO lower this number using tests */
 #define MAX_POSSIBLE_MOVES 40
