@@ -1,7 +1,8 @@
 Reversi
 =======
 
-This is a Reversi game for the C class.
+This is a Reversi game for the C class. The project ended on the 20/05/2012, so
+this repository is now open.
 
 Usage
 -----
