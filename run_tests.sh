@@ -3,11 +3,16 @@
 # use `valgrind` to detect memory leaks
 use_valgrind=0
 
+valgrind_opts="--tool=memcheck --leak-check=full --track-origins=yes --show-reachable=yes"
+valgrind_verb="-q"
+
 # temporary file
 TEMP=.tests.tmp
 
 if [ $# -ge 1 ] && [ "$1" == "--leaks" ] && [ $(which valgrind) != "" ]; then
      use_valgrind=1
+
+     [ $# -ge 2 ] && [ "$2" == "-v" ] && valgrind_verb="-v";
 fi
 
 echo -n "Compiling binary... "
@@ -21,8 +26,10 @@ for f in tests/*_tests.c;do
     tmp_f=${tmp_f##tests/}
 
     assert_nb=$(grep -c "assert(" ${f})
-    tmp_nb=$(grep -c "T_PLAY(" ${f})
-    assert_nb=$((assert_nb+(tmp_nb-2)*5))
+    if [ ${tmp_f%%_tests} == "game" ]; then
+        tmp_nb=$(grep -c "T_PLAY(" ${f})
+        assert_nb=$((assert_nb+(tmp_nb-2)*5))
+    fi
     
     tmp_err=$(tempfile)
     rm -f $tmp_err
@@ -54,9 +61,7 @@ for f in tests/*_tests.c;do
     # Checking for memory leaks
     if [ $use_valgrind -eq 1 ]; then
         echo "Checking for memory leaks…"
-        # Use the first line for quiet mode, and the second for verbose mode
-        #valgrind --tool=memcheck --leak-check=full -q /tmp/$tmp_f 2>&1
-        valgrind --tool=memcheck --leak-check=full --track-origins=yes -v /tmp/$tmp_f 2>&1
+        valgrind $valgrind_opts $valgrind_verb /tmp/$tmp_f 2>&1
     fi
 
     echo "${assert_nb} assertions successfully passed."
