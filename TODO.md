@@ -1,2 +1,0 @@
-- Add `if (X == NULL)` after each `X = malloc(…)` to test if `malloc` failed.
-- Check errors reported by Valgrind (./run_tests.sh --leaks)
