@@ -42,6 +42,8 @@ int launch_game(char ai_player) {
 #define READ_COMMAND(P,C) (P==ai_player)? read_ai_command(AI,C) : read_command(C)
 
     int i = 0,
+        col = -1,
+        row = -1,
         white_score = 0,
         pass = 0,
         executed = 0,
@@ -162,6 +164,11 @@ int launch_game(char ai_player) {
             continue;
         }
 
+        if ((AI != NULL) && (ai_player != current_player)) {
+            /* send the last move to AI */
+            convert_square(sq_name, &col, &row);
+        }
+
         SWITCH_PLAYER(current_player);
         puts("OK");
     }
@@ -236,9 +243,9 @@ int parse_cmd(board* b, char *command, char *player,
     if (command[1] == 'P') {
         /*  pass turn */
         *pass = 1;
-        return 0;
     }
 
+    /* square name or "PA" (pass) */
     (*sq_name)[0] = command[1];
     (*sq_name)[1] = command[2];
     (*sq_name)[2] = '\0';

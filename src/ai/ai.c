@@ -175,9 +175,10 @@ int ai_play(ai* self, int col, int row) {
     move->moves = NULL;
     free_future_move(move);
 
+    put_piece_by_colrow(self->b, col, row, self->current_player_c);
     SWITCH_PLAYER(self->current_player_c);
 
-    return put_piece_by_colrow(self->b, col, row, self->current_player_c);
+    return 0;
 }
 
 int free_future_move(future_move* fm) {
@@ -218,9 +219,6 @@ int read_ai_command(ai* self, char** cmd) {
          name = (self->player_c == BLACK_C) ? 'N' : 'B';
 
     ai_play_best_move(self, &sq);
-
-    /* TODO find a way to transmit other player's move to AI, to
-     * update the board */
 
     (*cmd)[0] = name;
     (*cmd)[1] = sq[0];
