@@ -30,7 +30,7 @@ for f in tests/*_tests.c;do
     # Compilation
 
     echo "Compiling ${tmp_f%%_tests} tests…"
-    gcc -Wall $f -o /tmp/$tmp_f 2> $tmp_err
+    gcc -g -Wall $f -o /tmp/$tmp_f 2> $tmp_err
 
     if [ $? -ne 0 ] || [ -s $tmp_err ]; then
         echo 'ERROR'
