@@ -27,15 +27,6 @@ default : othello
 othello: ${OBJS}
 	${CC} ${OPT} $^ -o $@
 
-othello_white_ai: ${OBJS_NO_MAIN} main_white_ai.o
-	${CC} ${OPT} $^ -o $@
-
-othello_black_ai: ${OBJS_NO_MAIN} main_black_ai.o
-	${CC} ${OPT} $^ -o $@
-
-othello_debug: ${OBJS}
-	${CC} ${OPT} $^ -o $@
-
 # tests
 run-tests :
 	./run_tests.sh
@@ -62,12 +53,6 @@ game.o : ${GAME_SRC}/game.c ${GAME_SRC}/game.h ${SRC}/utils.h
 text.o : ${INTERFACE_SRC}/text.c ${INTERFACE_SRC}/interface.h ${SRC}/utils.h
 ai.o : ${AI_SRC}/ai.c ${AI_SRC}/ai.h
 main.o : ${SRC}/main.c ${SRC}/main.h
-
-main_white_ai.o : ${SRC}/main.c ${SRC}/main.h
-	${CC} ${OPT} -DWHITE_AI=1 -c $< -o $@
-
-main_black_ai.o : ${SRC}/main.c ${SRC}/main.h
-	${CC} ${OPT} -DBLACK_AI=1 -c $< -o $@
 
 %.o :
 	${CC} ${OPT} -c $< -o $@
