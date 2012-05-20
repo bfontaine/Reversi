@@ -101,7 +101,7 @@ ai* create_ai(board* b, char player_c);
  * for the current position. This is a recursive function. Do nothing if
  * 'deep' < 1. Returns the weight of the given move.
  */
-int compute_moves(future_move* self, board* b, char player, int deep);
+int compute_moves(future_move* self, board* b, char player, int deep, short is_ia);
 
 /*
  * Make the AI plays its best move. All the tree of future moves will be
