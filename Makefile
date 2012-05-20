@@ -11,7 +11,7 @@ INTERFACE_SRC=${SRC}/interfaces
 AI_SRC=${SRC}/ai
 
 # Add -g below for debugging
-BASIC_OPT=-g -std=c89 -Wall -Wextra -Wundef -Werror
+BASIC_OPT=-std=c89 -Wall -Wextra -Wundef -Werror
 OPT=${BASIC_OPT} -I $(SRC)
 OPT_TESTS=${BASIC_OPT} -I $(SRC_TESTS)
 
